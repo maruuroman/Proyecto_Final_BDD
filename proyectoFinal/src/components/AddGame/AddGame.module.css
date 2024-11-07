@@ -1,0 +1,98 @@
+.addGameContainer {
+  max-width: 800px; /* Limita el ancho máximo del contenedor */
+  margin: 20px auto; /* Centra el contenedor horizontalmente */
+  padding: 20px; /* Añade un poco de relleno interno */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  text-align: left; /* Alineación del texto a la izquierda */
+}
+
+.addGameContainer h2 {
+  margin-top: 0; /* Elimina el margen superior del título */
+  margin-bottom: 15px; /* Espacio entre el título y el formulario */
+}
+
+.backButton {
+  padding: 10px 20px; /* Espaciado interno para el botón */
+  font-size: 14px; /* Tamaño de fuente del botón */
+  cursor: pointer; /* Cambia el cursor a un puntero */
+  background-color: #646cff; /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  margin-bottom: 10px; /* Espacio entre el botón y el título */
+  transition: background-color 0.3s; /* Animación en el cambio de color */
+}
+
+.backButton:hover {
+  background-color: #535bf2; /* Cambio de color al pasar el ratón */
+}
+
+.formGroup {
+  margin-bottom: 15px; /* Espacio entre los campos del formulario */
+}
+
+.formGroup label {
+  display: block; /* Hace que la etiqueta ocupe toda la línea */
+  margin-bottom: 5px; /* Espacio debajo de la etiqueta */
+  font-weight: normal; /* Elimina la negrita de las etiquetas */
+}
+
+.formGroup input {
+  width: 100%; /* El campo de entrada ocupa todo el ancho del contenedor */
+  padding: 10px; /* Espaciado interno del campo */
+  font-size: 1rem; /* Tamaño de fuente del campo */
+  border-radius: 4px; /* Bordes redondeados */
+  border: 1px solid #ddd; /* Borde gris claro */
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+}
+
+.submitButton {
+  padding: 10px 20px; /* Espaciado interno del botón */
+  font-size: 16px; /* Tamaño de fuente del botón */
+  cursor: pointer; /* Cambia el cursor a un puntero */
+  background-color: blue; /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  margin-top: 20px; /* Espacio entre el formulario y el botón */
+  transition: background-color 0.3s; /* Animación en el cambio de color */
+}
+
+.submitButton:hover {
+  background-color: #535bf2; /* Cambio de color al pasar el ratón */
+}
+
+/* Estilo responsivo para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+  .addGameContainer {
+      max-width: 100%; /* Ocupa todo el ancho del móvil */
+      padding: 10px; /* Reduce el padding para pantallas pequeñas */
+  }
+
+  h2 {
+      font-size: 20px; /* Tamaño más pequeño del título en móviles */
+  }
+
+  .submitButton {
+      font-size: 10px; /* Tamaño de fuente más pequeño */
+      padding: 8px 16px; /* Espaciado reducido */
+  }
+}
+
+/* Estilos para tablets */
+@media only screen and (max-width: 768px) {
+  .addGameContainer {
+      max-width: 90%; /* Limita el ancho máximo a un 90% */
+      padding: 15px; /* Reduce el padding */
+  }
+
+  h2 {
+      font-size: 24px; /* Ajusta el tamaño de fuente del título */
+  }
+
+  .submitButton {
+      font-size: 14px; /* Ajusta el tamaño de fuente */
+      padding: 10px 20px; /* Espaciado del botón */
+  }
+}

@@ -1,0 +1,63 @@
+.homeContainer {
+  text-align: center; /* Centra el contenido dentro del contenedor */
+  margin-top: 20px; /* Espacio superior */
+  padding: 20px; /* Espacio interno */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  position: relative; /* Posicionamiento relativo para ajustar elementos internos */
+}
+
+h2 {
+  font-size: 32px; /* Tamaño de fuente grande para el título */
+  color: #333; /* Color de texto gris oscuro */
+  margin-top: 0; /* Elimina el margen superior */
+  margin-bottom: 100px; /* Espacio entre el título y el botón */
+  position: relative; /* Posicionamiento relativo para pequeños ajustes */
+  top: -10px; /* Sube el título ligeramente */
+}
+
+.addButton {
+  padding: 10px 20px; /* Relleno para agrandar el botón */
+  font-size: 16px; /* Tamaño de fuente del texto del botón */
+  cursor: pointer; /* Muestra el cursor de mano al pasar por encima */
+  background-color: #646cff; /* Color de fondo del botón */
+  color: white; /* Color de texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  transition: background-color 0.3s; /* Animación en el cambio de color */
+  position: absolute; /* Posicionamiento absoluto para colocar el botón */
+  top: 80px; /* Ajuste de posición vertical */
+  right: 20px; /* Ajuste de posición horizontal */
+}
+
+.addButton:hover {
+  background-color: #535bf2; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilos responsivos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+  h2 {
+    font-size: 20px; /* Reduce el tamaño del título en móviles */
+    margin-bottom: 40px; /* Menos espacio entre el título y el botón */
+  }
+
+  .addButton {
+    font-size: 10px; /* Reduce el tamaño de fuente del botón */
+    padding: 8px 16px; /* Ajuste de relleno */
+    top: 10px; /* Coloca el botón más arriba en móviles */
+  }
+}
+
+/* Estilos para tablets */
+@media only screen and (max-width: 768px) {
+  h2 {
+    font-size: 24px; /* Ajusta el tamaño del título en tablets */
+    margin-bottom: 60px; /* Espacio moderado entre el título y el botón */
+  }
+
+  .addButton {
+    font-size: 14px; /* Ajuste del tamaño de fuente del botón */
+    padding: 10px 20px; /* Relleno del botón */
+    top: 80px; /* Posición vertical en tablets */
+  }
+}
