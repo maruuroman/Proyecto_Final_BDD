@@ -1,11 +1,11 @@
-.gamesList {
+.classesList {
   display: flex; /* Usa flexbox para organizar los elementos */
   flex-wrap: wrap; /* Permite que los elementos se envuelvan */
   justify-content: center; /* Centra los elementos horizontalmente */
   gap: 20px; /* Espacio entre los elementos */
 }
 
-.gameBox {
+.classBox {
   background-color: #f0f0f0; /* Color de fondo gris claro */
   padding: 20px; /* Espaciado interno */
   border-radius: 8px; /* Bordes redondeados */
@@ -35,17 +35,17 @@
 
 /* Media queries para pantallas pequeñas (móviles) */
 @media only screen and (max-width: 600px) {
-  .gamesListContainer {
+  .classesListContainer {
     padding: 10px; /* Reducido para pantallas pequeñas */
     max-width: 100%; /* Ocupa todo el ancho disponible */
   }
 
-  .gameItem {
+  .classItem {
     flex-direction: column; /* Cambia a disposición vertical */
     align-items: flex-start; /* Alinea los elementos a la izquierda */
   }
 
-  .gameTitle {
+  .classTitle {
     font-size: 18px; /* Reduce el tamaño del título */
     margin-bottom: 10px; /* Espacio entre el título y el botón */
   }
@@ -60,12 +60,12 @@
 
 /* Media queries para tablets */
 @media only screen and (max-width: 768px) {
-  .gamesListContainer {
+  .classesListContainer {
     padding: 15px; /* Espaciado interno moderado */
     max-width: 90%; /* Ajusta el ancho en tablets */
   }
 
-  .gameTitle {
+  .classTitle {
     font-size: 22px; /* Tamaño del título adaptado para tablets */
   }
 
@@ -77,11 +77,11 @@
 
 /* Para pantallas grandes (escritorios) */
 @media only screen and (min-width: 769px) {
-  .gamesListContainer {
+  .classesListContainer {
     max-width: 1000px; /* Ancho máximo para pantallas grandes */
   }
 
-  .gameTitle {
+  .classTitle {
     font-size: 24px; /* Tamaño del título más grande */
   }
 
