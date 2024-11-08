@@ -62,7 +62,7 @@ const App = () => {
         body: JSON.stringify(newGame),
       });
       const data = await response.json();
-      setGames(data);
+      setGames((prevGames) => [...prevGames, data]);
     } catch (error) {
       console.error("Error adding new game:", error);
     }

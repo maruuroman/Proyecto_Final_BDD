@@ -1,6 +1,6 @@
-import styles from "./GamesList.module.css"; // Importa los estilos específicos del componente
-import PropTypes from "prop-types"; // Importa la validación de tipos de propiedades
-import { useNavigate } from "react-router-dom"; // Importa la función para navegación programática
+import styles from "./GamesList.module.css"; 
+import PropTypes from "prop-types"; 
+import { useNavigate } from "react-router-dom"; 
 
 const GamesList = ({ games, deleteGameById }) => {
   const navigate = useNavigate(); // Obtiene la función de navegación para redireccionar
