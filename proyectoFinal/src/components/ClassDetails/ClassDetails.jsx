@@ -1,65 +1,41 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import styles from "./ClassDetails.module.css";
+import PropTypes from "prop-types"; // Importa PropTypes para validar las props
+import { useParams } from "react-router-dom";
 
-const ClassDetails = () => {
+const ClassDetails = ({ fetchActivityDetails }) => {
   const { activityId } = useParams();
-  const navigate = useNavigate();
   const [activity, setActivity] = useState(null);
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [error, setError] = useState(null); // Estado de error
-
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchActivityDetails = async () => {
+    const loadActivityDetails = async () => {
       try {
-        setLoading(true); // Iniciamos la carga
-        setError(null); // Limpiamos errores anteriores
-        const response = await fetch(`/api/activities/${activityId}`); // Petición al backend
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setActivity(data); // Guardamos los datos de la actividad
+        const data = await fetchActivityDetails(activityId);
+        setActivity(data);
       } catch (err) {
-        setError(err.message); // Guardamos el mensaje de error
-      } finally {
-        setLoading(false); // Finalizamos la carga
+        setError(err.message);
       }
     };
 
-  fetchActivityDetails();
-  }, [activityId]);
-
-  if (loading) {
-    return <p>Cargando detalles de la actividad...</p>; // Indicador de carga
-  }
+    loadActivityDetails();
+  }, [activityId, fetchActivityDetails]);
 
   if (error) {
-    return <p>Error al cargar los detalles: {error}</p>; // Mensaje de error
+    return <p style={{ color: "red" }}>{error}</p>;
   }
 
   if (!activity) {
-    return <p>No se encontraron detalles para esta actividad.</p>; // Manejo de actividad no encontrada
+    return <p>Loading...</p>;
   }
 
   return (
-    <div className={styles.classDetailsContainer}>
-      <button className={styles.backButton} onClick={() => navigate("/student")}>
-        Atrás
-      </button>
-      <h2>{activity.name}</h2>
+    <div>
+      <h1>{activity.name}</h1>
       <p>{activity.description}</p>
-      <h3>Clases disponibles:</h3>
       <ul>
         {activity.classes.map((cls) => (
           <li key={cls.id}>
-            <p>Clase: {cls.title}</p>
-            <p>Profesor: {cls.instructor}</p>
-            <button className={styles.enrollButton}  onClick={() => handleEnroll(cls.id)}>
-              Inscribirse
-            </button>
+            {cls.title} - Instructor: {cls.instructor}
           </li>
         ))}
       </ul>
@@ -67,24 +43,9 @@ const ClassDetails = () => {
   );
 };
 
-const handleEnroll = async (classId) => {
-  try {
-    const response = await fetch(`/api/classes/${classId}/enroll`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ studentId: "ID_DEL_ESTUDIANTE" }),
-    });
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-    alert("¡Inscripción exitosa!");
-  } catch (err) {
-    alert(`Error al inscribirse: ${err.message}`);
-  }
-};
-
+// Validación de las props
 ClassDetails.propTypes = {
-  activityId: PropTypes.string,
+  fetchActivityDetails: PropTypes.func.isRequired, // Se espera una función y es requerida
 };
 
 export default ClassDetails;

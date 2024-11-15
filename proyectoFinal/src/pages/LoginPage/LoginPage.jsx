@@ -1,68 +1,45 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./LoginPage.module.css";
+import PropTypes from "prop-types"; // Importa PropTypes
 
-const LoginForm = () => {
-  const [formData, setFormData] = useState({ correo: "", contraseña: "" });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+const LoginPage = ({ onLogin }) => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
     try {
-      const response = await fetch("http://127.0.0.1:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Error de inicio de sesión");
-
-      // Guardar token en localStorage o Context API
-      localStorage.setItem("token", data.token);
-
-      // Redirigir según el rol
-      //const role = formData.correo.endsWith("@correo.ucu.edu.uy") ? "alumno" : "instructor";
-      if (data.role === "alumno") {
-        navigate("/dashboard-alumno");
-      } else if (data.role === "instructor") {
-        navigate("/dashboard-instructor");
-      }
+      await onLogin(formData);
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.loginForm}>
-      <h2>Iniciar sesión</h2>
-      {error && <p className={styles.error}>{error}</p>}
-      <input
-        type="email"
-        name="correo"
-        placeholder="Correo electrónico"
-        value={formData.correo}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="password"
-        name="contraseña"
-        placeholder="Contraseña"
-        value={formData.contraseña}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Iniciar sesión</button>
-    </form>
+    <div>
+      <h1>Login</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 
-export default LoginForm;
+// Validación de las props
+LoginPage.propTypes = {
+  onLogin: PropTypes.func.isRequired, // Se espera una función y es requerida
+};
+
+export default LoginPage;
