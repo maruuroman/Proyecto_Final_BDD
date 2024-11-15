@@ -7,4 +7,3 @@ const InstructorDashboard = () => {
   };
   
   export default InstructorDashboard; // Exportación predeterminada
-  

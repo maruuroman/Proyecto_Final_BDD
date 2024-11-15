@@ -3,7 +3,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard";
 import ClassDetails from "./components/ClassDetails/ClassDetails";
-import useAuth from "./hooks/useAuth"; // Hook para gestionar la autenticación
+import useAuth from "./hooks/useAuth"; // Usar el hook useAuth
 
 // BASE URL para centralizar las solicitudes
 const BASE_URL = "http://localhost:5000";
@@ -15,10 +15,18 @@ const loginUser = async (credentials) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
+
   if (!response.ok) {
     throw new Error("Login failed");
   }
-  return response.json();
+
+  const data = await response.json();
+  
+  // Almacenar token y rol del usuario en el localStorage
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("userRole", data.role); // Asumimos que el backend devuelve un campo 'role' ('student' o 'instructor')
+
+  return data;
 };
 
 // Función para obtener detalles de una actividad
@@ -43,7 +51,7 @@ export const fetchActivities = async () => {
 };
 
 const App = () => {
-  const { isAuthenticated, userRole } = useAuth(); // Verifica si está autenticado y el rol del usuario
+  const { isAuthenticated, userRole } = useAuth(); // Usamos el hook useAuth para verificar el estado de autenticación
 
   return (
     <Router>
@@ -71,7 +79,7 @@ const App = () => {
           path="/student/activity/:activityId"
           element={
             isAuthenticated && userRole === "student" ? (
-              <ClassDetails fetchActivityDetails={getActivityDetails} /> // Pasamos la función getActivityDetails
+              <ClassDetails fetchActivityDetails={getActivityDetails} />
             ) : (
               <Navigate to="/login" />
             )
