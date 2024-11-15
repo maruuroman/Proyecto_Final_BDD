@@ -1,29 +1,29 @@
 import { useState } from "react"; // Importa el hook useState para manejar el estado local
 import { useNavigate } from "react-router-dom"; // Importa useNavigate para la navegación programática
 import PropTypes from "prop-types"; // Importa PropTypes para la validación de propiedades
-import styles from "./AddGame.module.css"; // Importa los estilos CSS específicos del componente
+import styles from "./AddClass.module.css"; // Importa los estilos CSS específicos del componente
 
-const AddGame = ({ onAddGame }) => {
-  const [title, setTitle] = useState(""); // Estado local para el título del juego
-  const [description, setDescription] = useState(""); // Estado local para la descripción del juego
-  const [players, setPlayers] = useState(""); // Estado local para la cantidad de jugadores
-  const [categories, setCategories] = useState(""); // Estado local para las categorías del juego
+const AddClass = ({ onAddClass }) => {
+  const [title, setTitle] = useState(""); // Estado local para el título de la clase
+  const [description, setDescription] = useState(""); // Estado local para la descripción de la clase
+  const [players, setPlayers] = useState(""); // Estado local para la cantidad de jugadores 
+  const [categories, setCategories] = useState(""); // Estado local para las categorías de la clase
   const navigate = useNavigate(); // Hook para la navegación
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Previene el comportamiento por defecto del formulario
-    const newGame = { title, description, players, categories }; // Crea un objeto con los datos del nuevo juego
-    onAddGame(newGame); // Llama a la función onAddGame pasando el nuevo juego
-    navigate("/"); // Vuelve a la página de inicio después de agregar el juego
+    const newClass = { title, description, players, categories }; // Crea un objeto con los datos 
+    onAddClass(newClass); // Llama a la función onAddClass pasando el nuevo 
+    navigate("/"); // Vuelve a la página de inicio después de agregar la clase 
   };
 
   return (
-    <div className={styles.addGameContainer}> {/* Contenedor principal con estilos CSS */}
+    <div className={styles.addClassContainer}> {/* Contenedor principal con estilos CSS */}
       <button className={styles.backButton} onClick={() => navigate("/")}>
         Atrás {/* Botón para regresar a la página de inicio */}
       </button>
-      <h2>Agregar nuevo juego</h2> {/* Título del formulario */}
-      <form onSubmit={handleSubmit}> {/* Formulario para agregar un juego */}
+      <h2>Agregar nuevo clase</h2> {/* Título del formulario */}
+      <form onSubmit={handleSubmit}> {/* Formulario para agregar una clase */}
         <div className={styles.formGroup}>
           <label>Título:</label> {/* Etiqueta para el título */}
           <input
@@ -60,15 +60,15 @@ const AddGame = ({ onAddGame }) => {
             required
           />
         </div>
-        <button type="submit" className={styles.submitButton}>Agregar juego</button> {/* Botón para enviar el formulario */}
+        <button type="submit" className={styles.submitButton}>Agregar clase</button> {/* Botón para enviar el formulario */}
       </form>
     </div>
   );
 };
 
 // Validación de props
-AddGame.propTypes = {
-  onAddGame: PropTypes.func.isRequired, // Requiere una función para la prop onAddGame
+AddClass.propTypes = {
+  onAddClass: PropTypes.func.isRequired, // Requiere una función para la prop
 };
 
-export default AddGame; // Exporta el componente AddGame para su uso en otros archivos
+export default AddClass; // Exporta el componente  para su uso en otros archivos

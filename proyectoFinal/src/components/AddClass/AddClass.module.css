@@ -1,4 +1,4 @@
-.addGameContainer {
+.addClassContainer {
   max-width: 800px; /* Limita el ancho máximo del contenedor */
   margin: 20px auto; /* Centra el contenedor horizontalmente */
   padding: 20px; /* Añade un poco de relleno interno */
@@ -7,7 +7,7 @@
   text-align: left; /* Alineación del texto a la izquierda */
 }
 
-.addGameContainer h2 {
+.addClassContainer h2 {
   margin-top: 0; /* Elimina el margen superior del título */
   margin-bottom: 15px; /* Espacio entre el título y el formulario */
 }
@@ -65,7 +65,7 @@
 
 /* Estilo responsivo para dispositivos móviles */
 @media only screen and (max-width: 600px) {
-  .addGameContainer {
+  .addClassContainer {
       max-width: 100%; /* Ocupa todo el ancho del móvil */
       padding: 10px; /* Reduce el padding para pantallas pequeñas */
   }
@@ -82,7 +82,7 @@
 
 /* Estilos para tablets */
 @media only screen and (max-width: 768px) {
-  .addGameContainer {
+  .addClassContainer {
       max-width: 90%; /* Limita el ancho máximo a un 90% */
       padding: 15px; /* Reduce el padding */
   }
