@@ -31,8 +31,9 @@ const LoginPage = ({ onLogin }) => {
   return (
     <div>
       <h1>Login</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      {error && <p className="error">{error}</p>}
+      <form className="loginForm" onSubmit={handleSubmit}>
+        <h2>Iniciar sesión</h2>
         <input
           type="email"
           placeholder="Email"
