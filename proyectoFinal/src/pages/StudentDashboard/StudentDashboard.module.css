@@ -1,0 +1,22 @@
+.dashboard-container {
+    background-color: #f4f7fc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .dashboard-container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-container p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .dashboard-container .info {
+    margin-top: 15px;
+  }
