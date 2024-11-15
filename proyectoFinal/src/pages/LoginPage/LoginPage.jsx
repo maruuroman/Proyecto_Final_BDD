@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
 
 const LoginPage = ({ onLogin }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ correo: "", contraseña: "" });
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // Instanciar useNavigate
 
@@ -14,7 +14,7 @@ const LoginPage = ({ onLogin }) => {
       await onLogin(formData); // Aquí no es necesario guardar 'userData'
 
       // Redireccionar según el dominio del correo electrónico
-      const emailDomain = formData.email.split('@')[1];
+      const emailDomain = formData.correo.split('@')[1];
 
       if (emailDomain === "correo.ucu.edu.uy") {
         navigate("/student"); // Redirigir al Dashboard de Estudiantes
@@ -31,20 +31,19 @@ const LoginPage = ({ onLogin }) => {
   return (
     <div>
       <h1>Login</h1>
-      {error && <p className="error">{error}</p>}
-      <form className="loginForm" onSubmit={handleSubmit}>
-        <h2>Iniciar sesión</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          placeholder="Correo"
+          value={formData.correo}
+          onChange={(e) => setFormData({ ...formData, correo: e.target.value })}
         />
         <input
           type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          placeholder="Contraseña"
+          value={formData.contraseña}
+          onChange={(e) => setFormData({ ...formData, contraseña: e.target.value })}
         />
         <button type="submit">Login</button>
       </form>
