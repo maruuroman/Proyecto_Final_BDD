@@ -30,6 +30,18 @@ const getActivityDetails = async (activityId) => {
   return response.json();
 };
 
+export const fetchActivities = async () => {
+  const response = await fetch(`${BASE_URL}/activities`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al obtener las actividades");
+  }
+
+  return response.json();
+};
+
 const App = () => {
   const { isAuthenticated, userRole } = useAuth(); // Verifica si está autenticado y el rol del usuario
 
