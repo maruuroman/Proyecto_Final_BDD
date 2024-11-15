@@ -1,24 +1,56 @@
-import styles from "./ClassesList.module.css"; // Importa los estilos específicos del componente
-import PropTypes from "prop-types"; // Importa la validación de tipos de propiedades
-import { useNavigate } from "react-router-dom"; // Importa la función para navegación programática
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import "./ClassesList.css";
 
-const ClassesList = ({ classes, deleteClassById }) => {
-  const navigate = useNavigate(); // Obtiene la función de navegación para redireccionar
+const ClassesList = ({ classes, setClasses }) => {
+  const navigate = useNavigate();
+
+  const deleteClassById = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/clases?id=${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setClasses(classes.filter((classItem) => classItem.id !== id));
+      } else {
+        console.error("Error al eliminar la clase");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
+    }
+  };
+
+  const canModifyOrDelete = (startTime) => {
+    const currentTime = new Date();
+    return new Date(startTime) > currentTime; // Solo se puede modificar o eliminar si no ha comenzado.
+  };
 
   return (
-    <div className={styles.classesList}>
-      {classes.map((classItem) => ( // Itera sobre la lista de clases para renderizarlas
-        <div key={classItem.id} className={styles.classBox}> {/* Contenedor de cada clase */}
-          <h3>{classItem.title}</h3> {/* Muestra el título de la clase */}
+    <div className="classesList">
+      {classes.map((classItem) => (
+        <div key={classItem.id} className="classBox">
+          <h3>{classItem.title}</h3>
+          <p>Instructor: {classItem.instructor}</p>
+          <p>Turno: {classItem.shift}</p>
+          <p>Actividad: {classItem.activity}</p>
+          {canModifyOrDelete(classItem.startTime) ? (
+            <>
           <button
-            className={styles.detailsButton}
-            onClick={() => navigate(`/class/${classItem.id}`)}> {/* Navega a la página de detalles */}
+            className="detailsButton"
+            onClick={() => navigate(`/class/${classItem.id}`)}
+          >
             Detalles
           </button>
-          <button className={styles.deleteButton}
-            onClick={() => deleteClassById(classItem.id)}> {/* Llama a la función para borrar la clase */}
+          <button
+            className="deleteButton"
+            onClick={() => deleteClassById(classItem.id)}
+          >
             Borrar
           </button>
+          </>
+        ) : (
+          <p className="notice">Clase en progreso. No se puede modificar.</p>
+        )}
         </div>
       ))}
     </div>
@@ -28,14 +60,15 @@ const ClassesList = ({ classes, deleteClassById }) => {
 ClassesList.propTypes = {
   classes: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired, // El ID de la clase es obligatorio
-      title: PropTypes.string.isRequired, // El título de la clase es obligatorio
-      description: PropTypes.string, // La descripción de la clase es opcional
-      players: PropTypes.string, // El número de jugadores es opcional
-      categories: PropTypes.string, // Las categorías de la clase son opcionales
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      instructor: PropTypes.string.isRequired,
+      shift: PropTypes.string.isRequired,
+      activity: PropTypes.string.isRequired,
+      startTime: PropTypes.string.isRequired,
     })
-  ).isRequired, // La lista de clases es obligatoria
-  deleteClassById: PropTypes.func.isRequired, // La función para eliminar una clase es obligatoria
+  ).isRequired,
+  setClasses: PropTypes.func.isRequired,
 };
 
-export default ClassesList; // Exporta el componente por defecto
+export default ClassesList;
