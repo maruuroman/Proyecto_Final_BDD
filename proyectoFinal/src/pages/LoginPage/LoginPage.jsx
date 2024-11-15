@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./LoginForm.module.css";
+import styles from "./LoginPage.module.css";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({ correo: "", contraseña: "" });
@@ -29,10 +29,10 @@ const LoginForm = () => {
       localStorage.setItem("token", data.token);
 
       // Redirigir según el rol
-      const role = formData.correo.endsWith("@correo.ucu.edu.uy") ? "alumno" : "instructor";
-      if (role === "alumno") {
+      //const role = formData.correo.endsWith("@correo.ucu.edu.uy") ? "alumno" : "instructor";
+      if (data.role === "alumno") {
         navigate("/dashboard-alumno");
-      } else {
+      } else if (data.role === "instructor") {
         navigate("/dashboard-instructor");
       }
     } catch (err) {
