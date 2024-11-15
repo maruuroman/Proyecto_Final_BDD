@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage"; // Página de login
-import StudentDashboard from "./pages/StudentDashboard/StudentDashboard/StudentDashboard"; // Dashboard del alumno
+import StudentDashboard from "./pages/StudentDashboard/StudentDashboard"; // Dashboard del alumno
 import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard"; // Dashboard del instructor
 import useAuth from "./hooks/useAuth"; // Hook para gestionar la autenticación
 
