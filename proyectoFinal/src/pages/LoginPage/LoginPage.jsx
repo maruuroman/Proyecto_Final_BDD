@@ -1,29 +1,27 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({ correo: "", contraseña: "" });
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Instanciar useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Formulario enviado:", formData); // Depuración
     try {
-      // Iniciar sesión con las credenciales
-      await onLogin(formData); // Aquí no es necesario guardar 'userData'
-
-      // Redireccionar según el dominio del correo electrónico
+      await onLogin(formData);
       const emailDomain = formData.correo.split('@')[1];
-
       if (emailDomain === "correo.ucu.edu.uy") {
-        navigate("/student"); // Redirigir al Dashboard de Estudiantes
+        navigate("/student");
       } else if (emailDomain === "ucu.edu.uy") {
-        navigate("/instructor"); // Redirigir al Dashboard de Instructores
+        navigate("/instructor");
       } else {
         setError("Correo electrónico no válido.");
       }
     } catch (err) {
+      console.error("Error de inicio de sesión:", err); // Depuración
       setError(err.message);
     }
   };
@@ -51,9 +49,8 @@ const LoginPage = ({ onLogin }) => {
   );
 };
 
-// Validación de las props
 LoginPage.propTypes = {
-  onLogin: PropTypes.func.isRequired, // Se espera una función y es requerida
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default LoginPage;
