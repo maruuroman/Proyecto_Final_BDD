@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage/LoginPage"; // Página de login
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard"; // Dashboard del alumno
 import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard"; // Dashboard del instructor
 import useAuth from "./hooks/useAuth"; // Hook para gestionar la autenticación
+import ClassDetails from "./components/ClassDetails/ClassDetails";
 
 const App = () => {
   const { isAuthenticated, userRole } = useAuth(); // Verifica si está autenticado y el rol del usuario
@@ -19,6 +20,17 @@ const App = () => {
           element={
             isAuthenticated && userRole === "student" ? (
               <StudentDashboard />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/student/activity/:activityId"
+          element={
+            isAuthenticated && userRole === "student" ? (
+              <ClassDetails />
             ) : (
               <Navigate to="/login" />
             )
