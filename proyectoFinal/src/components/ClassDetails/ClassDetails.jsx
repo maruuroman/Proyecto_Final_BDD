@@ -1,43 +1,51 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styles from "./ClassDetails.module.css";
+import PropTypes from "prop-types"; // Importa PropTypes para validar las props
+import { useParams } from "react-router-dom";
 
-const ClassDetails = () => {
+const ClassDetails = ({ fetchActivityDetails }) => {
   const { activityId } = useParams();
-  const navigate = useNavigate();
   const [activity, setActivity] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Reemplaza la URL con la API de tu backend
-    fetch(`/api/activities/${activityId}`)
-      .then((response) => response.json())
-      .then((data) => setActivity(data))
-      .catch((error) => console.error("Error al cargar la actividad:", error));
-  }, [activityId]);
+    const loadActivityDetails = async () => {
+      try {
+        const data = await fetchActivityDetails(activityId);
+        setActivity(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    loadActivityDetails();
+  }, [activityId, fetchActivityDetails]);
+
+  if (error) {
+    return <p style={{ color: "red" }}>{error}</p>;
+  }
 
   if (!activity) {
-    return <p>Cargando detalles de la actividad...</p>;
+    return <p>Loading...</p>;
   }
 
   return (
-    <div className={styles.classDetailsContainer}>
-      <button className={styles.backButton} onClick={() => navigate("/student")}>
-        Atrás
-      </button>
-      <h2>{activity.name}</h2>
+    <div>
+      <h1>{activity.name}</h1>
       <p>{activity.description}</p>
-      <h3>Clases disponibles:</h3>
       <ul>
         {activity.classes.map((cls) => (
           <li key={cls.id}>
-            <p>Clase: {cls.title}</p>
-            <p>Profesor: {cls.instructor}</p>
-            <button className={styles.enrollButton}>Inscribirse</button>
+            {cls.title} - Instructor: {cls.instructor}
           </li>
         ))}
       </ul>
     </div>
   );
+};
+
+// Validación de las props
+ClassDetails.propTypes = {
+  fetchActivityDetails: PropTypes.func.isRequired, // Se espera una función y es requerida
 };
 
 export default ClassDetails;
