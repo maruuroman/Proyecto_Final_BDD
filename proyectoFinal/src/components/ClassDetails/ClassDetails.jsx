@@ -1,11 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+//import PropTypes from "prop-types";
 import styles from "./ClassDetails.module.css";
 
 const ClassDetails = () => {
   const { activityId } = useParams();
   const navigate = useNavigate();
   const [activity, setActivity] = useState(null);
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [error, setError] = useState(null); // Estado de error
+
 
   useEffect(() => {
     // Reemplaza la URL con la API de tu backend

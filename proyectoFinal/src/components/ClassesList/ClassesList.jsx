@@ -20,11 +20,21 @@ const ClassesList = ({ classes, setClasses }) => {
     }
   };
 
+  const canModifyOrDelete = (startTime) => {
+    const currentTime = new Date();
+    return new Date(startTime) > currentTime; // Solo se puede modificar o eliminar si no ha comenzado.
+  };
+
   return (
     <div className="classesList">
       {classes.map((classItem) => (
         <div key={classItem.id} className="classBox">
           <h3>{classItem.title}</h3>
+          <p>Instructor: {classItem.instructor}</p>
+          <p>Turno: {classItem.shift}</p>
+          <p>Actividad: {classItem.activity}</p>
+          {canModifyOrDelete(classItem.startTime) ? (
+            <>
           <button
             className="detailsButton"
             onClick={() => navigate(`/class/${classItem.id}`)}
@@ -37,6 +47,10 @@ const ClassesList = ({ classes, setClasses }) => {
           >
             Borrar
           </button>
+          </>
+        ) : (
+          <p className="notice">Clase en progreso. No se puede modificar.</p>
+        )}
         </div>
       ))}
     </div>
@@ -48,9 +62,10 @@ ClassesList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      players: PropTypes.string,
-      categories: PropTypes.string,
+      instructor: PropTypes.string.isRequired,
+      shift: PropTypes.string.isRequired,
+      activity: PropTypes.string.isRequired,
+      startTime: PropTypes.string.isRequired,
     })
   ).isRequired,
   setClasses: PropTypes.func.isRequired,
