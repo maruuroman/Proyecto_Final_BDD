@@ -1,48 +1,43 @@
-import { useParams, useNavigate } from "react-router-dom"; // Importa hooks para acceder a los parámetros de la URL y para la navegación
-import PropTypes from "prop-types"; // Importa PropTypes para la validación de las props
-import styles from "./ClassDetails.module.css"; // Importa los estilos específicos del componente
-import { Link } from "react-router-dom"; // Importa el componente Link para la navegación
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import styles from "./ClassDetails.module.css";
 
-const ClassDetails = ({ classes }) => {
-  const { id } = useParams(); // Obtiene el parámetro "id" de la URL
-  const navigate = useNavigate(); // Hook para programar la navegación
+const ClassDetails = () => {
+  const { activityId } = useParams();
+  const navigate = useNavigate();
+  const [activity, setActivity] = useState(null);
 
-  // Busca la clase con el id correspondiente en la lista de clases
-  const classItem = classes.find((cl) => cl.id === id);
+  useEffect(() => {
+    // Reemplaza la URL con la API de tu backend
+    fetch(`/api/activities/${activityId}`)
+      .then((response) => response.json())
+      .then((data) => setActivity(data))
+      .catch((error) => console.error("Error al cargar la actividad:", error));
+  }, [activityId]);
 
-  // Si no se encuentra la clase, muestra un mensaje o redirige
-  if (!classItem) {
-    return <p>La clase no existe o los datos aún no están cargados.</p>; // Muestra mensaje de error si no hay clase
+  if (!activity) {
+    return <p>Cargando detalles de la actividad...</p>;
   }
 
   return (
     <div className={styles.classDetailsContainer}>
-      <button className={styles.backButton} onClick={() => navigate("/")}>
+      <button className={styles.backButton} onClick={() => navigate("/student")}>
         Atrás
       </button>
-      <h2>{classItem.title}</h2> {/* Muestra el título de la clase */}
-      <p>Descripción: {classItem.description}</p> {/* Muestra la descripción de la clase */}
-      <p>Jugadores: {classItem.players}</p> {/* Muestra la cantidad de jugadores */}
-      <p>Categorías: {classItem.categories}</p> {/* Muestra las categorías de la clase */}
-
-      <Link to={`/edit-class/${classItem.id}`}> {/* Link para editar la clase */}
-        <button className={styles.editButton}>Editar clase</button>
-      </Link>
+      <h2>{activity.name}</h2>
+      <p>{activity.description}</p>
+      <h3>Clases disponibles:</h3>
+      <ul>
+        {activity.classes.map((cls) => (
+          <li key={cls.id}>
+            <p>Clase: {cls.title}</p>
+            <p>Profesor: {cls.instructor}</p>
+            <button className={styles.enrollButton}>Inscribirse</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-// Definir PropTypes para validar las props del componente
-ClassDetails.propTypes = {
-  classes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired, // "id" es obligatorio y debe ser una cadena
-      title: PropTypes.string.isRequired, // "title" es obligatorio y debe ser una cadena
-      description: PropTypes.string, // "description" es opcional y debe ser una cadena
-      players: PropTypes.string, // "players" es opcional y debe ser una cadena
-      categories: PropTypes.string, // "categories" es opcional y debe ser una cadena
-    })
-  ).isRequired,
-};
-
-export default ClassDetails; // Exporta el componente para su uso en otros archivos
+export default ClassDetails;

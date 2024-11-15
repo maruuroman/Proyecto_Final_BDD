@@ -1,0 +1,71 @@
+.loginForm {
+    max-width: 400px; /* Limita el ancho máximo del formulario */
+    margin: 50px auto; /* Centra el formulario horizontalmente y añade espacio superior */
+    padding: 20px; /* Espacio interno */
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    text-align: center; /* Centra el texto dentro del formulario */
+  }
+  
+  .loginForm h2 {
+    margin-bottom: 20px; /* Espacio inferior */
+    color: #333; /* Color del texto */
+    font-size: 24px; /* Tamaño del texto */
+  }
+  
+  .loginForm input {
+    width: calc(100% - 20px); /* Ocupa todo el ancho del contenedor menos el padding */
+    padding: 10px; /* Espacio interno */
+    margin-bottom: 15px; /* Espacio inferior */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+  }
+  
+  .loginForm input:focus {
+    border-color: #646cff; /* Cambia el color del borde al enfocar */
+    outline: none; /* Elimina el borde predeterminado del navegador */
+  }
+  
+  .loginForm button {
+    width: 100%; /* El botón ocupa todo el ancho del formulario */
+    padding: 10px; /* Espacio interno */
+    font-size: 16px; /* Tamaño del texto */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    background-color: #646cff; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Animación al pasar el ratón */
+  }
+  
+  .loginForm button:hover {
+    background-color: #535bf2; /* Color de fondo al pasar el ratón */
+  }
+  
+  .error {
+    color: red; /* Texto en rojo para los errores */
+    font-size: 14px; /* Tamaño del texto del error */
+    margin-bottom: 15px; /* Espacio inferior */
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .loginForm {
+      padding: 15px; /* Reducir el espacio interno en pantallas pequeñas */
+      max-width: 90%; /* El formulario ocupa casi todo el ancho de la pantalla */
+    }
+  
+    .loginForm h2 {
+      font-size: 20px; /* Reducir el tamaño del título */
+    }
+  
+    .loginForm input {
+      font-size: 14px; /* Reducir el tamaño del texto en los campos */
+    }
+  
+    .loginForm button {
+      font-size: 14px; /* Reducir el tamaño del texto del botón */
+    }
+  }
+  
