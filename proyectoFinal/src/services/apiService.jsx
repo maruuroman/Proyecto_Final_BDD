@@ -19,7 +19,7 @@ export const loginUser = async (credentials) => {
 };
 
 export const fetchActivities = async () => {
-  const response = await fetch(`${BASE_URL}/activities`, {
+  const response = await fetch(`${BASE_URL}/actividades`, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 
@@ -31,7 +31,7 @@ export const fetchActivities = async () => {
 };
 
 export const getActivityDetails = async (activityId) => {
-  const response = await fetch(`${BASE_URL}/activities/${activityId}`, {
+  const response = await fetch(`${BASE_URL}/actividades/${activityId}`, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
 
