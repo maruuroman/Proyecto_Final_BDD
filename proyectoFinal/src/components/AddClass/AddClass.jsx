@@ -45,7 +45,7 @@ const AddClass = ({ onAddClass }) => {
         <div className={styles.formGroup}>
           <label>Cantidad de participantes:</label> {/* Etiqueta para la cantidad de jugadores */}
           <input
-            type="text"
+            type="number"
             value={players}
             onChange={(e) => setPlayers(e.target.value)} // Actualiza el estado de los jugadores
             required
