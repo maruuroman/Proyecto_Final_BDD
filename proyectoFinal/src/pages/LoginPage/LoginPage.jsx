@@ -15,15 +15,22 @@ const LoginPage = ({ onLogin }) => {
     try {
       const data = await onLogin(credentials); // Llamamos a la función loginUser pasada como prop
 
-      // Almacenar token y rol del usuario en el localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userRole", data.role); // Asumimos que el backend devuelve un campo 'role' ('student' o 'instructor')
+      // Verifica si la respuesta es correcta antes de proceder
+      if (data && data.token && data.role) {
+        console.log("Login exitoso", data);
 
-      // Redirigir al dashboard según el rol del usuario
-      if (data.role === "student") {
-        navigate("/student"); // Redirigir a /student si el rol es "student"
-      } else if (data.role === "instructor") {
-        navigate("/instructor"); // Redirigir a /instructor si el rol es "instructor"
+        // Almacenar token y rol del usuario en el localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userRole", data.role); // Asumimos que el backend devuelve un campo 'role' ('student' o 'instructor')
+
+        // Redirigir al dashboard según el rol del usuario
+        if (data.role === "student") {
+          navigate("/student"); // Redirigir a /student si el rol es "student"
+        } else if (data.role === "instructor") {
+          navigate("/instructor"); // Redirigir a /instructor si el rol es "instructor"
+        }
+      } else {
+        setError("Error en los datos recibidos.");
       }
     } catch (error) {
       setError("Error en el inicio de sesión");
