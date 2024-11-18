@@ -5,6 +5,8 @@ import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard
 import ClassDetails from "./components/ClassDetails/ClassDetails";
 import useAuth from "./hooks/useAuth"; // Usar el hook useAuth
 
+
+
 // BASE URL para centralizar las solicitudes
 const BASE_URL = "http://localhost:5000";
 
@@ -21,6 +23,7 @@ const loginUser = async (credentials) => {
   }
 
   const data = await response.json();
+  console.log("Datos recibidos del backend:", data); // Verifica los datos
   
   // Almacenar token y rol del usuario en el localStorage
   localStorage.setItem("token", data.token);
@@ -67,7 +70,7 @@ const App = () => {
           path="/student"
           element={
             isAuthenticated && userRole === "student" ? (
-              <StudentDashboard />
+              <StudentDashboard fetchActivities={fetchActivities} />
             ) : (
               <Navigate to="/login" />
             )

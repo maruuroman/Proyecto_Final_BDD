@@ -5,11 +5,12 @@ const useAuth = () => {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    // Simulación de validación de autenticación
-    const user = JSON.parse(localStorage.getItem("user")); // Recupera datos del usuario almacenados
-    if (user) {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("userRole");
+
+    if (token && role) {
       setIsAuthenticated(true);
-      setUserRole(user.role); // Define el rol del usuario
+      setUserRole(role);
     } else {
       setIsAuthenticated(false);
       setUserRole(null);
