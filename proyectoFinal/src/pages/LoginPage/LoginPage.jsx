@@ -2,38 +2,35 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const LoginPage = ({ onLogin }) => {
-  const [correo, setCorreo] = useState(""); // Correo en lugar de email
-  const [contraseña, setContraseña] = useState(""); // Contraseña en lugar de password
+const LoginPage = ({ onLogin }) => { 
+  const [correo, setCorreo] = useState(""); 
+  const [contraseña, setContraseña] = useState("");
+  const [role, setRole] = useState(""); 
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // Para redirigir al usuario después del login
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const credentials = { correo, contraseña }; // Usamos los nuevos nombres
+    const credentials = { correo, contraseña, role }; // Usamos los nuevos nombres
     try {
       const data = await onLogin(credentials); // Llamamos a la función loginUser pasada como prop
 
       // Verifica si la respuesta es correcta antes de proceder
-      if (data && data.token && data.role) {
-        console.log("Login exitoso", data);
+      if (data && data.success) {
+        console.log("Inicio de sesión exitoso", data);
 
-        // Almacenar token y rol del usuario en el localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userRole", data.role); // Asumimos que el backend devuelve un campo 'role' ('student' o 'instructor')
-
-        // Redirigir al dashboard según el rol del usuario
-        if (data.role === "student") {
-          navigate("/student"); // Redirigir a /student si el rol es "student"
-        } else if (data.role === "instructor") {
-          navigate("/instructor"); // Redirigir a /instructor si el rol es "instructor"
+        // Redirigir según el rol seleccionado
+        if (role === "student") {
+          navigate("/student");
+        } else if (role === "instructor") {
+          navigate("/instructor");
         }
       } else {
-        setError("Error en los datos recibidos.");
+        setError("Error al iniciar sesión. Verifica tus datos.");
       }
     } catch (error) {
-      setError("Error en el inicio de sesión");
+      setError("Error en el proceso de inicio de sesión.");
     }
   };
 
@@ -56,6 +53,17 @@ const LoginPage = ({ onLogin }) => {
           onChange={(e) => setContraseña(e.target.value)}
           required
         />
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
+        >
+        <option value="" disabled>
+            Selecciona tu rol
+          </option>
+          <option value="student">Alumno</option>
+          <option value="instructor">Instructor</option>
+        </select>
         <button type="submit">Iniciar sesión</button>
       </form>
     </div>
@@ -63,7 +71,7 @@ const LoginPage = ({ onLogin }) => {
 };
 
 LoginPage.propTypes = {
-  onLogin: PropTypes.func.isRequired, // Se espera una función y es requerida
+  onLogin: PropTypes.func.isRequired, 
 };
 
 export default LoginPage;
