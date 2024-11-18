@@ -2,73 +2,61 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LoginPage from "./pages/LoginPage/LoginPage";
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard";
-import ClassDetails from "./components/ClassDetails/ClassDetails";
-import ProtectedRoute from "./hooks/ProtectedRoute";
-import { AuthProvider, useAuth } from "./hooks/AuthContext";
-import { fetchActivities, getActivityDetails, loginUser } from "./services/apiService";
+import { useState, useEffect } from "react";
+import { fetchActivities } from "./services/apiService";
 
+const BASE_URL = "http://localhost:5000";
+
+const loginUser = async (credentials) => {
+  const response = await fetch(`${BASE_URL}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    throw new Error("Login failed");
+  }
+
+  const data = await response.json();
+  return data;
+};
 
 const App = () => {
-  const { isAuthenticated, userRole } = useAuth(); // Usamos el hook useAuth para verificar el estado de autenticación
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("userRole");
+
+    if (token && role) {
+      setIsAuthenticated(true);
+      setUserRole(role);
+    }
+  }, []);
 
   return (
-    <AuthProvider>
     <Router>
       <Routes>
-        {/* Ruta de inicio de sesión */}
         <Route
           path="/login"
-          element={<LoginPage onLogin={loginUser} />} // Pasamos la función loginUser como prop
+          element={<LoginPage onLogin={loginUser} />}
         />
 
-        {/* Ruta protegida para alumnos */}
         <Route
           path="/student"
-          element={
-            <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                userRole={userRole}
-                allowedRoles={["student"]}
-              >
-                
-              <StudentDashboard fetchActivities={fetchActivities} />
-            </ProtectedRoute>
-          }
+          element={isAuthenticated && userRole === "student" ? <StudentDashboard fetchActivities={fetchActivities}/> : <Navigate to="/login" />}
         />
 
-        {/* Ruta para los detalles de una actividad */}
-        <Route
-          path="/student/activity/:activityId"
-          element={
-            <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                userRole={userRole}
-                allowedRoles={["student"]}
-              >
-                <ClassDetails fetchActivityDetails={getActivityDetails} />
-              </ProtectedRoute>
-          }
-        />
-
-        {/* Ruta protegida para instructores */}
         <Route
           path="/instructor"
-          element={
-            <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                userRole={userRole}
-                allowedRoles={["instructor"]}
-              >
-                <InstructorDashboard />
-            </ProtectedRoute>
-          }
+          element={isAuthenticated && userRole === "instructor" ? <InstructorDashboard /> : <Navigate to="/login" />}
         />
 
-        {/* Ruta por defecto o desconocida */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
-    </AuthProvider>
   );
 };
 
