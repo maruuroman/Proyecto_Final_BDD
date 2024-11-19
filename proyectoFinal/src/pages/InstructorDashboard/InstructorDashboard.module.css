@@ -1,0 +1,148 @@
+/* Fondo general con color */
+body {
+    background-color: rgb(221, 242, 247);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Estilos del contenedor principal */
+  .loginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Estilo del formulario */
+  .loginForm {
+    max-width: 400px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: left;
+  }
+  
+  /* Título estilizado */
+  .loginForm h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    font-family: 'Pacifico', cursive;
+    letter-spacing: 1.5px;
+  }
+  
+  /* Etiquetas */
+  .loginForm label {
+    display: block;
+    margin-bottom: 5px;
+    color: #444;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Campos de texto */
+  .loginForm input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .loginForm input:focus {
+    border-color: #646cff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(100, 108, 255, 0.5);
+  }
+  
+  /* Botón */
+  .loginForm button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #646cff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+  }
+  
+  .loginForm button:hover {
+    background-color: #535bf2;
+  }
+  
+  /* Mensajes de error */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  /* Responsivo */
+  @media only screen and (max-width: 600px) {
+    .loginForm {
+      padding: 20px;
+      max-width: 90%;
+    }
+  
+    .loginForm h2 {
+      font-size: 24px;
+    }
+  
+    .loginForm label {
+      font-size: 14px;
+    }
+  
+    .loginForm input {
+      font-size: 14px;
+    }
+  
+    .loginForm button {
+      font-size: 14px;
+    }
+  }
+  
+  /* Barra superior */
+  .headerBar {
+    width: 100%;
+    height: 50px;
+    background-color: #0c0e75; /* Color del encabezado */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .headerImage {
+    height: 50px;
+    width: 50px;
+    border-radius: 60%; /* Imagen redondeada */
+    object-fit: cover; 
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
