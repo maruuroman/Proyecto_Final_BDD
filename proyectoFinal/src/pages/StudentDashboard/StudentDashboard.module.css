@@ -1,0 +1,36 @@
+
+/* Barra superior */
+.headerBar {
+    width: 100%;
+    height: 50px;
+    background-color: #0c0e75; /* Color del encabezado */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .headerImage {
+    height: 50px;
+    width: 50px;
+    border-radius: 60%; /* Imagen redondeada */
+    object-fit: cover; 
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
