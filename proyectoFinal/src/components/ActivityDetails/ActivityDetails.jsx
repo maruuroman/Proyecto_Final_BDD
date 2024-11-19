@@ -1,49 +1,41 @@
+// ActivityDetails.jsx
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types"; // Validar las props
 import { useParams } from "react-router-dom";
+import { getActivityDetails } from '../../services/apiService';  // Asegúrate de que la ruta de importación sea correcta
 
-const ActivityDetails = ({ fetchClassesByActivity }) => {
-  const { activityId } = useParams(); // ID de la actividad seleccionada
-  const [classes, setClasses] = useState([]); // Lista de clases de la actividad
+const ActivityDetails = () => {
+  const { id } = useParams();
+  const [activityDetails, setActivityDetails] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadClasses = async () => {
+    const fetchDetails = async () => {
       try {
-        const data = await fetchClassesByActivity(activityId); // Fetch clases asociadas a la actividad
-        setClasses(data);
-      } catch (err) {
-        setError(err.message);
+        const details = await getActivityDetails(id);
+        setActivityDetails(details);
+      } catch (error) {
+        setError(error.message);
       }
     };
 
-    loadClasses();
-  }, [activityId, fetchClassesByActivity]);
+    fetchDetails();
+  }, [id]);
 
   if (error) {
     return <p style={{ color: "red" }}>{error}</p>;
   }
 
-  if (!classes.length) {
-    return <p>No hay clases disponibles para esta actividad o están cargando...</p>;
+  if (!activityDetails) {
+    return <p>Cargando detalles de la actividad...</p>;
   }
 
   return (
     <div>
-      <h1>Clases para la Actividad</h1>
-      <ul>
-        {classes.map((cls) => (
-          <li key={cls.id}>
-            <strong>{cls.title}</strong> - Instructor: {cls.instructor} - Edad mínima: {cls.edad_minima}
-          </li>
-        ))}
-      </ul>
+      <h1>Detalles de la Actividad</h1>
+      <p>{activityDetails.descripcion}</p>
+      {/* Añade más detalles de la actividad si es necesario */}
     </div>
   );
-};
-
-ActivityDetails.propTypes = {
-  fetchClassesByActivity: PropTypes.func.isRequired, // Se espera una función que obtenga clases
 };
 
 export default ActivityDetails;

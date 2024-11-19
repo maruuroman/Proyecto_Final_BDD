@@ -1,14 +1,16 @@
 const BASE_URL = "http://localhost:5000";
 
 export const loginUser = async (credentials) => {
-  const response = await fetch("http://localhost:5000/api/login", {
+  const response = await fetch(`${BASE_URL}/api/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
 
   if (!response.ok) {
-    throw new Error("Login failed");
+    // Mejor manejo del error, lanzando lo que el servidor responda
+    const error = await response.text();
+    throw new Error(error || "Login failed");
   }
 
   const data = await response.json();
@@ -20,11 +22,16 @@ export const loginUser = async (credentials) => {
 
 export const fetchActivities = async () => {
   const response = await fetch(`${BASE_URL}/actividades`, {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
   });
 
   if (!response.ok) {
-    throw new Error("Error al obtener las actividades");
+    const error = await response.text();
+    throw new Error(error || "Error al obtener las actividades");
   }
 
   return response.json();
@@ -32,11 +39,16 @@ export const fetchActivities = async () => {
 
 export const getActivityDetails = async (activityId) => {
   const response = await fetch(`${BASE_URL}/actividades/${activityId}`, {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
   });
 
   if (!response.ok) {
-    throw new Error("Error al obtener los detalles de la actividad");
+    const error = await response.text();
+    throw new Error(error || "Error al obtener los detalles de la actividad");
   }
 
   return response.json();

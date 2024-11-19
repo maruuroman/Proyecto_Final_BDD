@@ -1,12 +1,12 @@
-import styles from "./ActivityList.module.css"; // Estilos del componente
-import PropTypes from "prop-types"; // Validar las props
-import { useNavigate } from "react-router-dom"; // Para navegación programática
+import styles from "./ActivityList.module.css";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const ActivityList = ({ activities }) => {
-  const navigate = useNavigate(); // Navegación programática
+  const navigate = useNavigate();
 
   const handleDetails = (activityId) => {
-    navigate(`/clases/${activityId}`); // Redirige a los detalles de la actividad
+    navigate(`/details/${activityId}`); // Asegúrate de que la ruta sea '/details/:id'
   };
 
   return (
@@ -21,7 +21,6 @@ const ActivityList = ({ activities }) => {
           >
             Detalles
           </button>
-
         </div>
       ))}
     </div>
@@ -31,12 +30,11 @@ const ActivityList = ({ activities }) => {
 ActivityList.propTypes = {
   activities: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired, // ID de la actividad
-      descripcion: PropTypes.string.isRequired, // Nombre de la actividad
-      edad_minima: PropTypes.number, // Descripción de la actividad
+      id: PropTypes.number.isRequired,
+      descripcion: PropTypes.string.isRequired,
+      edad_minima: PropTypes.number,
     })
-  ).isRequired, // Lista de actividades es requerida
-
+  ).isRequired,
 };
 
 export default ActivityList;
