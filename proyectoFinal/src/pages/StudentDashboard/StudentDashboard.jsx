@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import ClassesList from "../../components/ClassesList/ClassesList";
+import ActivityList from "../../components/ActivityList/ActivityList";
 
 import styles from "./StudentDashboard.module.css"; 
 
@@ -44,9 +44,9 @@ const StudentDashboard = ({ fetchActivities }) => {
   return (
     <div className={styles.dashboardContainer}>
       <h1>Dashboard del Alumno</h1>
-      <ClassesList
-        classes={activities} // Reutilizamos ClassesList para mostrar actividades
-        deleteClassById={deleteActivityById} // Pasamos la función para eliminar
+      <ActivityList
+        activities={activities} // Reutilizamos ActivityList para mostrar actividades
+        deleteActivityById={deleteActivityById} // Pasamos la función para eliminar
       />
     </div>
   );
