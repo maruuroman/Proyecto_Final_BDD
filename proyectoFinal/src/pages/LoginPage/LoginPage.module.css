@@ -1,74 +1,105 @@
-/* Estilos generales para la página */
+/* Fondo general con color */
 body {
-  background-color: #f0f0f0;
+  background-color: lightseagreen;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  font-family: 'Arial', sans-serif;
 }
 
-/* Estilos para el formulario de login */
+/* Estilos del contenedor principal */
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Estilo del formulario */
 .loginForm {
   max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
+  padding: 30px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  text-align: left;
 }
 
+/* Título estilizado */
 .loginForm h2 {
   margin-bottom: 20px;
+  text-align: center;
   color: #333;
-  font-size: 24px;
+  font-size: 28px;
+  font-family: 'Pacifico', cursive;
+  letter-spacing: 1.5px;
 }
 
+/* Etiquetas */
+.loginForm label {
+  display: block;
+  margin-bottom: 5px;
+  color: #444;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Campos de texto */
 .loginForm input {
   width: calc(100% - 20px);
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
 }
 
 .loginForm input:focus {
   border-color: #646cff;
   outline: none;
+  box-shadow: 0 0 5px rgba(100, 108, 255, 0.5);
 }
 
+/* Botón */
 .loginForm button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
   cursor: pointer;
   background-color: #646cff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   transition: background-color 0.3s;
+  font-weight: bold;
 }
 
 .loginForm button:hover {
   background-color: #535bf2;
 }
 
+/* Mensajes de error */
 .error {
   color: red;
   font-size: 14px;
   margin-bottom: 15px;
 }
 
+/* Responsivo */
 @media only screen and (max-width: 600px) {
   .loginForm {
-    padding: 15px;
+    padding: 20px;
     max-width: 90%;
   }
 
   .loginForm h2 {
-    font-size: 20px;
+    font-size: 24px;
+  }
+
+  .loginForm label {
+    font-size: 14px;
   }
 
   .loginForm input {
