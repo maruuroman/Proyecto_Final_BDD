@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import styles from "./LoginPage.module.css";
 
 const LoginPage = ({ onLogin }) => {
   const [correo, setCorreo] = useState(""); // Correo en lugar de email
@@ -41,16 +42,17 @@ const LoginPage = ({ onLogin }) => {
   
 
   return (
-    <div>
-      <h2>Iniciar sesión</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleLogin}>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Iniciar sesión</h2>
+      {error && <p className={styles.error}>{error}</p>}
+      <form onSubmit={handleLogin} className={styles.loginForm}>
         <input
           type="email"
           placeholder="Correo electrónico"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
           required
+          className={styles.input}
         />
         <input
           type="password"
@@ -58,8 +60,11 @@ const LoginPage = ({ onLogin }) => {
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
           required
+          className={styles.input}
         />
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" className={styles.button}>
+          Iniciar sesión
+        </button>
       </form>
     </div>
   );
