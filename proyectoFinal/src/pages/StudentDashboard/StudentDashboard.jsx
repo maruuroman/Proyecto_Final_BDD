@@ -1,28 +1,33 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import ActivityList from "../../components/ActivityList/ActivityList";
-
-import styles from "./StudentDashboard.module.css"; 
+import styles from "./StudentDashboard.module.css"; // Asegúrate de importar tus estilos CSS
 
 const StudentDashboard = ({ fetchActivities }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState(null);
 
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setIsOpen(false); // Cierra el menú después de navegar
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirigir a login si no está autenticado
+      navigate("/login");
       return;
     }
 
-    // Cargar las actividades desde el backend
     const loadActivities = async () => {
       try {
         const data = await fetchActivities();
         setActivities(data);
-      } catch  {
+      } catch {
         setError("Error al cargar las actividades.");
       }
     };
@@ -34,28 +39,30 @@ const StudentDashboard = ({ fetchActivities }) => {
     return <p style={{ color: "red" }}>{error}</p>;
   }
 
-   // Función para eliminar actividad
-   const deleteActivityById = (id) => {
-    setActivities((prevActivities) =>
-      prevActivities.filter((activity) => activity.id !== id)
-    );
-  };
-
   return (
     <div className={styles.dashboardContainer}>
-      <h1>Dashboard del Alumno</h1>
-      <ActivityList
-        activities={activities} // Reutilizamos ActivityList para mostrar actividades
-        deleteActivityById={deleteActivityById} // Pasamos la función para eliminar
-      />
+      <div className={styles.headerBar}>
+        <div className={styles.menuTrigger} onClick={toggleDropdown}>
+          ≡
+        </div>
+        {isOpen && (
+          <div className={styles.dropdownContent}>
+            <button onClick={() => handleNavigation('/')}>Inicio</button>
+            <button onClick={() => handleNavigation('/equipos')}>Alquiler de Equipos</button>
+            <button onClick={() => handleNavigation('/inscripciones')}>Mis Inscripciones</button>
+            <button onClick={() => {
+              localStorage.removeItem('token');
+              navigate('/login');
+            }}>Logout</button>
+          </div>
+        )}
+        <div className={styles.logo}>
+          Dashboard del Alumno
+        </div>
+      </div>
+      <ActivityList activities={activities} />
     </div>
   );
-};
-
-
-// Validación de las props
-StudentDashboard.propTypes = {
-  fetchActivities: PropTypes.func.isRequired, // Se espera una función y es requerida
 };
 
 export default StudentDashboard;
