@@ -1,4 +1,4 @@
-.gameDetailsContainer {
+.activityDetailsContainer {
   max-width: 800px; /* Limita el ancho máximo del contenedor */
   margin: 20px auto 0; /* Centra el contenedor horizontalmente y ajusta el margen superior */
   padding: 20px; /* Añade un poco de relleno interno */
@@ -23,12 +23,12 @@
   background-color: #535bf2; /* Color de fondo al pasar el ratón */
 }
 
-.gameDetailsContainer h2 {
+.activityDetailsContainer h2 {
   margin-top: 0; /* Elimina el margen superior del título */
   margin-bottom: 5px; /* Ajusta el espacio entre el título y el siguiente elemento */
 }
 
-.gameDetailsContainer p {
+.activityDetailsContainer p {
   margin-top: 0; /* Elimina el margen superior de los párrafos */
   margin-bottom: 10px; /* Ajusta el espacio entre los párrafos */
 }
@@ -51,7 +51,7 @@
 
 /* Estilos responsivos para dispositivos móviles */
 @media only screen and (max-width: 600px) {
-  .gameDetailsContainer {
+  .activityDetailsContainer {
     max-width: 100%; /* El contenedor ocupa todo el ancho del dispositivo */
     padding: 10px; /* Padding reducido para pantallas pequeñas */
   }
@@ -72,7 +72,7 @@
 
 /* Estilos para tablets */
 @media only screen and (max-width: 768px) {
-  .gameDetailsContainer {
+  .activityDetailsContainer {
     max-width: 90%; /* Ajusta el ancho en tablets */
     padding: 15px; /* Padding ajustado */
   }
