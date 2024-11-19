@@ -7,16 +7,17 @@ const ClassesList = ({ classes, deleteClassById }) => {
 
   return (
     <div className={styles.classesList}>
-      {classes.map((classItem) => ( // Itera sobre la lista de clases para renderizarlas
-        <div key={classItem.id} className={styles.classBox}> {/* Contenedor de cada clase */}
-          <h3>{classItem.title}</h3> {/* Muestra el título de la clase */}
+      {classes.map((activity) => ( // Itera sobre la lista de clases para renderizarlas
+        <div key={activity.id} className={styles.classBox}> {/* Contenedor de cada clase */}
+          <h3>{activity.descripcion}</h3> {/* Muestra el título de la clase */}
+          <p>Edad mínima: {activity.edad_minima}</p>
           <button
             className={styles.detailsButton}
-            onClick={() => navigate(`/class/${classItem.id}`)}> {/* Navega a la página de detalles */}
+            onClick={() => navigate(`/class/${activity.id}`)}> {/* Navega a la página de detalles */}
             Detalles
           </button>
           <button className={styles.deleteButton}
-            onClick={() => deleteClassById(classItem.id)}> {/* Llama a la función para borrar la clase */}
+            onClick={() => deleteClassById(activity.id)}> {/* Llama a la función para borrar la clase */}
             Borrar
           </button>
         </div>
