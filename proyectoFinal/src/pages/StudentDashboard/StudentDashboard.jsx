@@ -19,10 +19,11 @@ const StudentDashboard = ({ fetchActivities }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/login"); // Redirigir a login si no está autenticado
       return;
     }
 
+    // Cargar las actividades desde el backend
     const loadActivities = async () => {
       try {
         const data = await fetchActivities();
@@ -56,9 +57,7 @@ const StudentDashboard = ({ fetchActivities }) => {
             }}>Logout</button>
           </div>
         )}
-        <div className={styles.logo}>
-          Dashboard del Alumno
-        </div>
+        <div className={styles.logo}>Dashboard del Alumno</div>
       </div>
       <ActivityList activities={activities} />
     </div>

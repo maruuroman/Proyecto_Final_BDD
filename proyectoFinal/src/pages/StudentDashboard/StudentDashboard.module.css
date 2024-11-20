@@ -1,76 +1,37 @@
-
-/* Barra superior */
-.headerBar {
-    width: 100%;
-    height: 50px;
-    background-color: #0c0e75; /* Color del encabezado */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  .logo {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    flex-shrink: 0;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .headerImage {
-    height: 50px;
-    width: 50px;
-    border-radius: 60%; /* Imagen redondeada */
-    object-fit: cover; 
-    cursor: pointer;
-    margin-left: auto;
-  }
-  
-/* Estilos de la barra superior y el menú desplegable */
 .headerBar {
   width: 100%;
-  height: 50px;
-  background-color: #0c0e75;
+  height: 60px;
+  background-color: #0c0e75; /* Ajusta este valor para coincidir con tu esquema de color */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 20px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
 }
 
 .menuTrigger {
   cursor: pointer;
   color: white;
-  font-size: 24px;
+  font-size: 24px; /* Tamaño del icono del menú */
 }
 
 .dropdownContent {
   display: block;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   z-index: 1001;
+  top: 60px; /* Posición vertical correcta */
 }
 
 .dropdownContent button {
   color: black;
   padding: 12px 16px;
-  text-decoration: none;
-  display: block;
   text-align: left;
   border: none;
   background: none;
@@ -84,8 +45,8 @@
 
 .logo {
   color: white;
+  text-align: center;
+  flex-grow: 1; /* Esto ayudará a centrar el título */
   font-size: 18px;
   font-weight: bold;
-  letter-spacing: 1px;
-  font-family: 'Arial', sans-serif;
 }
