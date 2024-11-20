@@ -1,11 +1,16 @@
 /* Fondo general con color */
 body {
-  background-color: rgb(221, 242, 247);
+  margin: 0;
+  padding: 0;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR85I_X3vmxpSCZk2XHaOIv0lpKd8TZp3PANQ&s");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  align-items: center; 
   font-family: 'Arial', sans-serif;
 }
 
