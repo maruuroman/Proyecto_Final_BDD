@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityList from "../../components/ActivityList/ActivityList";
-import styles from "./StudentDashboard.module.css"; // Asegúrate de importar tus estilos CSS
+import styles from "./StudentDashboard.module.css";
 
 const StudentDashboard = ({ fetchActivities }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,21 +9,24 @@ const StudentDashboard = ({ fetchActivities }) => {
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState(null);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = (event) => {
+    event.stopPropagation(); // Detiene la propagación para evitar eventos no deseados
+    setIsOpen(!isOpen);
+  };
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    setIsOpen(false); // Cierra el menú después de navegar
+  // Función específica para manejar la navegación desde el menú
+  const handleMenuNavigation = (path) => {
+    setIsOpen(false); // Cierra el menú
+    navigate(path); // Navega a la ruta especificada
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirigir a login si no está autenticado
+      navigate("/login");
       return;
     }
 
-    // Cargar las actividades desde el backend
     const loadActivities = async () => {
       try {
         const data = await fetchActivities();
@@ -41,16 +44,14 @@ const StudentDashboard = ({ fetchActivities }) => {
   }
 
   return (
-    <div className={styles.dashboardContainer}>
+    <div className={styles.dashboardContainer} onClick={() => setIsOpen(false)}>
       <div className={styles.headerBar}>
-        <div className={styles.menuTrigger} onClick={toggleDropdown}>
-          ≡
-        </div>
+        <div className={styles.menuTrigger} onClick={toggleDropdown}>≡</div>
         {isOpen && (
-          <div className={styles.dropdownContent}>
-            <button onClick={() => handleNavigation('/')}>Inicio</button>
-            <button onClick={() => handleNavigation('/equipos')}>Alquiler de Equipos</button>
-            <button onClick={() => handleNavigation('/inscripciones')}>Mis Inscripciones</button>
+          <div className={styles.dropdownContent} onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => handleMenuNavigation('/home')}>Inicio</button>
+            <button onClick={() => handleMenuNavigation('/equipos')}>Alquiler de Equipos</button>
+            <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Inscripciones</button>
             <button onClick={() => {
               localStorage.removeItem('token');
               navigate('/login');
