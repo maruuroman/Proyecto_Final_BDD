@@ -1,39 +1,48 @@
-// ActivityDetails.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getActivityDetails } from '../../services/apiService';  // Asegúrate de que la ruta de importación sea correcta
 
-const ActivityDetails = () => {
-  const { id } = useParams();
-  const [activityDetails, setActivityDetails] = useState(null);
+const ActivityDetails = ({ getActivityDetails }) => {
+  const { id } = useParams(); // Extraer "id" directamente
+  const [clase, setClase] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
+      if (!id) {
+        setError("El ID de la actividad no es válido");
+        return;
+      }
+
       try {
-        const details = await getActivityDetails(id);
-        setActivityDetails(details);
-      } catch (error) {
-        setError(error.message);
+        const data = await getActivityDetails(id);
+        setClase(data);
+      } catch (err) {
+        setError(err.message);
       }
     };
 
     fetchDetails();
-  }, [id]);
+  }, [id, getActivityDetails]);
 
   if (error) {
     return <p style={{ color: "red" }}>{error}</p>;
   }
 
-  if (!activityDetails) {
+  if (!clase) {
     return <p>Cargando detalles de la actividad...</p>;
   }
 
   return (
     <div>
       <h1>Detalles de la Actividad</h1>
-      <p>{activityDetails.descripcion}</p>
-      {/* Añade más detalles de la actividad si es necesario */}
+      {clase.map((clase) => (
+      <div key={clase.id}>
+        <p>Fecha: {clase.fecha_clase}</p>
+        <p>Tipo: {clase.tipo_clase}</p>
+        <p>Instructor: {clase.instructor_nombre} {clase.instructor_apellido}</p>
+        <p>Dictada: {clase.dictada ? "Sí" : "No"}</p>
+      </div>
+    ))}
     </div>
   );
 };

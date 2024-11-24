@@ -24,6 +24,21 @@ const loginUser = async (credentials) => {
   return data;
 };
 
+const getActivityDetails = async (id) => {
+  if (!id) {
+    throw new Error("El ID de la actividad no es válido");
+  }
+
+  const response = await fetch(`${BASE_URL}/clases/${id}`);
+
+  if (!response.ok) {
+    throw new Error("No se pudieron obtener los detalles de la actividad");
+  }
+
+  return await response.json();
+};
+
+
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -54,12 +69,12 @@ const App = () => {
           element={isAuthenticated && userRole === "instructor" ? <InstructorDashboard /> : <Navigate to="/login" />}
         />
         <Route
-          path="/activities"
+          path="/actividades"
           element={isAuthenticated ? <ActivityList /> : <Navigate to="/login" />}
         />
         <Route
-          path="/details/:id"
-          element={isAuthenticated ? <ActivityDetails /> : <Navigate to="/login" />}
+          path="/clases/:id"
+          element={isAuthenticated ? <ActivityDetails  getActivityDetails={getActivityDetails} /> : <Navigate to="/login" />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
