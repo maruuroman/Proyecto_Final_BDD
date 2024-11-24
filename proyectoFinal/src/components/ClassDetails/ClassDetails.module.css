@@ -1,0 +1,92 @@
+.gameDetailsContainer {
+  max-width: 800px; /* Limita el ancho máximo del contenedor */
+  margin: 20px auto 0; /* Centra el contenedor horizontalmente y ajusta el margen superior */
+  padding: 20px; /* Añade un poco de relleno interno */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  text-align: left; /* Alineación del texto a la izquierda */
+}
+
+.backButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px; /* Espacio entre el botón y el título */
+  transition: background-color 0.3s; /* Animación para el cambio de color */
+}
+
+.backButton:hover {
+  background-color: #535bf2; /* Color de fondo al pasar el ratón */
+}
+
+.gameDetailsContainer h2 {
+  margin-top: 0; /* Elimina el margen superior del título */
+  margin-bottom: 5px; /* Ajusta el espacio entre el título y el siguiente elemento */
+}
+
+.gameDetailsContainer p {
+  margin-top: 0; /* Elimina el margen superior de los párrafos */
+  margin-bottom: 10px; /* Ajusta el espacio entre los párrafos */
+}
+
+.editButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px; /* Espacio entre el botón de edición y los demás elementos */
+  transition: background-color 0.3s; /* Animación para el cambio de color */
+}
+
+.editButton:hover {
+  background-color: #535bf2; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilos responsivos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+  .gameDetailsContainer {
+    max-width: 100%; /* El contenedor ocupa todo el ancho del dispositivo */
+    padding: 10px; /* Padding reducido para pantallas pequeñas */
+  }
+
+  h2 {
+    font-size: 20px; /* Tamaño más pequeño para el título */
+  }
+
+  .backButton {
+    font-size: 10px;
+    padding: 8px 16px; /* Tamaño reducido del botón para móviles */
+  }
+  
+  p {
+    font-size: 10px; /* Reduce el tamaño de fuente de los párrafos */
+  }
+}
+
+/* Estilos para tablets */
+@media only screen and (max-width: 768px) {
+  .gameDetailsContainer {
+    max-width: 90%; /* Ajusta el ancho en tablets */
+    padding: 15px; /* Padding ajustado */
+  }
+
+  h2 {
+    font-size: 24px; /* Tamaño del título para tablets */
+  }
+
+  .backButton {
+    font-size: 14px;
+    padding: 10px 20px; /* Ajuste del tamaño del botón */
+  }
+  
+  p {
+    font-size: 14px; /* Ajuste del tamaño de fuente de los párrafos */
+  }
+}

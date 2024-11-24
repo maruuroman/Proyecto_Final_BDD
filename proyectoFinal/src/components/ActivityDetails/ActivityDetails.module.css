@@ -50,4 +50,82 @@
     font-size: 14px;
     padding: 8px 16px;
   }
+
+  /* Contenedor principal para la página de detalles */
+  .detailsContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* Encabezado principal */
+  .detailsHeader {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  /* Contenedor de detalles */
+  .detailBox {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Estilo para los párrafos de información */
+  .detailItem {
+    font-size: 16px;
+    color: #555555;
+  }
+
+  /* Botón de volver */
+  .backButton {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .backButton:hover {
+    background-color: #0056b3;
+  }
+
+  /* Estilos responsivos */
+  @media (max-width: 600px) {
+    .detailsContainer {
+      padding: 15px;
+    }
+
+    .detailsHeader {
+      font-size: 20px;
+    }
+
+    .detailItem {
+      font-size: 14px;
+    }
+
+    .backButton {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
 }
