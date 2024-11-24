@@ -6,14 +6,14 @@ import styles from "./ActivityDetails.module.css";
 const ActivityDetails = ({ getActivityDetails }) => {
   const { id } = useParams(); // Extraer "id" directamente
   const navigate = useNavigate();
-  const [clase, setClase] = useState(null);
+  const [clases, setClases] = useState([]); // Cambiado a plural para reflejar que son varias clases
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
       try {
         const data = await getActivityDetails(id);
-        setClase(data);
+        setClases(data); // Asignar el array de clases
       } catch (err) {
         setError(err.message);
       }
@@ -26,38 +26,37 @@ const ActivityDetails = ({ getActivityDetails }) => {
     return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
   }
 
-  if (!clase) {
+  if (!clases.length) {
     return <p style={{ textAlign: "center" }}>Cargando detalles de la actividad...</p>;
   }
 
   return (
     <div className={styles.detailsContainer}>
-      <div className={styles.detailsCard}>
-        <h1 className={styles.detailsHeader}>Detalles de la Actividad</h1>
-        {clase.map((detalle) => (
-          <div key={detalle.id} className={styles.detailBox}>
+      <h1 className={styles.detailsHeader}>Detalles de la Actividad</h1>
+      <div className={styles.classesList}>
+        {clases.map((clase) => (
+          <div key={clase.id} className={styles.detailBox}>
             <p className={styles.detailItem}>
-              <strong>Fecha:</strong> {detalle.fecha_clase}
+  <strong>Fecha:</strong> {new Date(clase.fecha_clase).toLocaleDateString()}
+</p>
+
+            <p className={styles.detailItem}>
+              <strong>Tipo:</strong> {clase.tipo_clase}
             </p>
             <p className={styles.detailItem}>
-              <strong>Tipo:</strong> {detalle.tipo_clase}
+              <strong>Instructor:</strong> {clase.instructor_nombre} {clase.instructor_apellido}
             </p>
             <p className={styles.detailItem}>
-              <strong>Instructor:</strong> {detalle.instructor_nombre} {detalle.instructor_apellido}
-            </p>
-            <p className={styles.detailItem}>
-              <strong>Dictada:</strong> {detalle.dictada ? "Sí" : "No"}
+              <strong>Dictada:</strong> {clase.dictada ? "Sí" : "No"}
             </p>
           </div>
         ))}
-        {/* El botón de Volver también está dentro de la tarjeta */}
-        <button className={styles.backButton} onClick={() => navigate(-1)}>
-          Volver
-        </button>
       </div>
+      <button className={styles.backButton} onClick={() => navigate(-1)}>
+        Volver
+      </button>
     </div>
   );
-  
 };
 
 // Validar las props con PropTypes
