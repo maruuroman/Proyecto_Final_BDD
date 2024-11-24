@@ -6,7 +6,7 @@ const ActivityList = ({ activities }) => {
   const navigate = useNavigate();
 
   const handleDetails = (activityId) => {
-    navigate(`/details/${activityId}`); // Asegúrate de que la ruta sea '/details/:id'
+    navigate(`/clases/${activityId}`); // Asegúrate de que la ruta sea '/details/:id'
   };
 
   return (
