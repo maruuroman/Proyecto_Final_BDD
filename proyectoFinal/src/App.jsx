@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LoginPage from "./pages/LoginPage/LoginPage";
 import StudentDashboard from "./pages/StudentDashboard/StudentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard/InstructorDashboard";
-import ActivityList from "./components/ActivityList/ActivityList.jsx"; // Asegúrate de que la ruta de importación sea correcta
-import ActivityDetails from "./components/ActivityDetails/ActivityDetails.jsx"; // Asegúrate de que la ruta de importación sea correcta
+import ActivityList from "./components/ActivityList/ActivityList.jsx"; 
+import ActivityDetails from "./components/ActivityDetails/ActivityDetails.jsx"; 
 import { useState, useEffect } from "react";
 import { fetchActivities } from "./services/apiService";
 

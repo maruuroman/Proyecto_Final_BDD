@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import styles from "./ActivityDetails.module.css";
 
 const ActivityDetails = ({ getActivityDetails }) => {
   const { id } = useParams(); // Extraer "id" directamente
+  const navigate = useNavigate();
   const [clase, setClase] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
-      if (!id) {
-        setError("El ID de la actividad no es válido");
-        return;
-      }
-
-      try {
-        const data = await getActivityDetails(id);
-        setClase(data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
+        try {
+          const data = await getActivityDetails(id);
+          setClase(data);
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+    
     fetchDetails();
   }, [id, getActivityDetails]);
 
@@ -33,16 +30,21 @@ const ActivityDetails = ({ getActivityDetails }) => {
   }
 
   return (
-    <div>
-      <h1>Detalles de la Actividad</h1>
-      {clase.map((clase) => (
-      <div key={clase.id}>
-        <p>Fecha: {clase.fecha_clase}</p>
-        <p>Tipo: {clase.tipo_clase}</p>
-        <p>Instructor: {clase.instructor_nombre} {clase.instructor_apellido}</p>
-        <p>Dictada: {clase.dictada ? "Sí" : "No"}</p>
-      </div>
-    ))}
+    <div className={styles.detailsContainer}>
+      <h1 className={styles.detailsHeader}>Detalles de la Actividad</h1>
+      {clase.map((detalle) => (
+        <div key={detalle.id} className={styles.detailBox}>
+          <p className={styles.detailItem}><strong>Fecha:</strong> {detalle.fecha_clase}</p>
+          <p className={styles.detailItem}><strong>Tipo:</strong> {detalle.tipo_clase}</p>
+          <p className={styles.detailItem}>
+            <strong>Instructor:</strong> {detalle.instructor_nombre} {detalle.instructor_apellido}
+          </p>
+          <p className={styles.detailItem}><strong>Dictada:</strong> {detalle.dictada ? "Sí" : "No"}</p>
+        </div>
+      ))}
+      <button className={styles.backButton} onClick={() => navigate(-1)}>
+        Volver
+      </button>
     </div>
   );
 };
