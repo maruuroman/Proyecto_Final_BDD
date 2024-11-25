@@ -6,6 +6,7 @@ import ActivityList from "./components/ActivityList/ActivityList.jsx";
 import ActivityDetails from "./components/ActivityDetails/ActivityDetails.jsx"; 
 import { useState, useEffect } from "react";
 import { fetchActivities } from "./services/apiService";
+import EquipmentRental from "./components/EquipmentRental/EquipmentRental";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -73,7 +74,7 @@ const handleInscription = async (classId, ci_alumno) => {
 
 async function verificarInscripcion(ciAlumno, idClase) {
   try {
-      const response = await fetch('${BASE_URL}/verificar_inscripcion', {
+      const response = await fetch(`${BASE_URL}/equipamiento/disponible`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -93,6 +94,15 @@ async function verificarInscripcion(ciAlumno, idClase) {
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [equipment, setEquipment] = useState([]);
+
+  // Fetch del equipamiento disponible
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/equipment/available`)
+      .then((response) => response.json())
+      .then((data) => setEquipment(data))
+      .catch((error) => console.error("Error al cargar el equipamiento:", error));
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -126,6 +136,11 @@ const App = () => {
         <Route
           path="/clases/:id"
           element={isAuthenticated ? <ActivityDetails  getActivityDetails={getActivityDetails}  handleInscription={handleInscription} /> : <Navigate to="/login" />}
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+        <Route
+          path="/alquilar"
+          element={<EquipmentRental equipment={equipment} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
