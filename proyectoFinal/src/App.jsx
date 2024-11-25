@@ -38,6 +38,35 @@ const getActivityDetails = async (id) => {
   return await response.json();
 };
 
+const handleInscription = async (classId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Usuario no autenticado");
+
+    const response = await fetch(`${BASE_URL}/clases/${classId}/inscribirse`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Supongo que usas JWT para autenticación
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Error al inscribirse en la clase");
+    }
+
+    const data = await response.json();
+    console.log("Inscripción exitosa:", data); 
+    return data; // Devuelve datos adicionales si es necesario
+  } catch (error) {
+    console.error("Error en inscripción:", error.message);
+    throw error; // Propaga el error para manejarlo en el componente
+  }
+};
+
+
+
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -74,7 +103,7 @@ const App = () => {
         />
         <Route
           path="/clases/:id"
-          element={isAuthenticated ? <ActivityDetails  getActivityDetails={getActivityDetails} /> : <Navigate to="/login" />}
+          element={isAuthenticated ? <ActivityDetails  getActivityDetails={getActivityDetails}  handleInscription={handleInscription} /> : <Navigate to="/login" />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
