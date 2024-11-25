@@ -43,6 +43,10 @@ const StudentDashboard = ({ fetchActivities }) => {
     return <p style={{ color: "red" }}>{error}</p>;
   }
 
+  if (activities.length === 0) {
+    return <p style={{ textAlign: "center" }}>No hay actividades disponibles.</p>;
+  }
+
   return (
     <div className={styles.dashboardContainer} onClick={() => setIsOpen(false)}>
       <div className={styles.headerBar}>

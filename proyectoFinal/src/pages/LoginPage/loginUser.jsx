@@ -28,7 +28,10 @@ export const fetchActivities = async () => {
   }
 
   return response.json();
-};
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return []; // Devuelve un arreglo vacío en caso de error
+  };
 
 export const getActivityDetails = async (activityId) => {
   const response = await fetch(`${BASE_URL}/activities/${activityId}`, {
