@@ -38,8 +38,14 @@ const getActivityDetails = async (id) => {
   return await response.json();
 };
 
-const handleInscription = async (classId) => {
+const handleInscription = async (classId, ci_alumno) => {
+  
   try {
+    const yaInscripto = await verificarInscripcion(ci_alumno, classId);
+    if (yaInscripto) {
+        alert('Ya estás inscripto en esta clase.');
+        return;
+    }
     const token = localStorage.getItem("token");
     if (!token) throw new Error("Usuario no autenticado");
 
@@ -64,6 +70,22 @@ const handleInscription = async (classId) => {
     throw error; // Propaga el error para manejarlo en el componente
   }
 };
+
+async function verificarInscripcion(ciAlumno, idClase) {
+  try {
+      const response = await fetch('${BASE_URL}/verificar_inscripcion', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ci_alumno: ciAlumno, id_clase: idClase }),
+      });
+      const data = await response.json();
+      return data.inscripto;
+  } catch (error) {
+      console.error('Error al verificar inscripción:', error);
+  }
+}
 
 
 
