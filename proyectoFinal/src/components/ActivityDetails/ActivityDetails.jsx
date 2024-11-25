@@ -3,11 +3,24 @@ import { useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types"; // Importar PropTypes
 import styles from "./ActivityDetails.module.css";
 
-const ActivityDetails = ({ getActivityDetails }) => {
+const ActivityDetails = ({ getActivityDetails, handleInscription  }) => {
   const { id } = useParams(); // Extraer "id" directamente
   const navigate = useNavigate();
   const [clases, setClases] = useState([]); // Cambiado a plural para reflejar que son varias clases
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleInscriptionClick = async (classId) => {
+    try {
+      setLoading(true);
+      await handleInscription(classId); // Llamar la función desde las props
+      alert("¡Inscripción exitosa!");
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -30,38 +43,52 @@ const ActivityDetails = ({ getActivityDetails }) => {
     return <p style={{ textAlign: "center" }}>Cargando detalles de la actividad...</p>;
   }
 
+
   return (
     <div className={styles.detailsContainer}>
-      <h1 className={styles.detailsHeader}>Detalles de la Actividad</h1>
-      <div className={styles.classesList}>
-        {clases.map((clase) => (
-          <div key={clase.id} className={styles.detailBox}>
-            <p className={styles.detailItem}>
-  <strong>Fecha:</strong> {new Date(clase.fecha_clase).toLocaleDateString()}
-</p>
-
-            <p className={styles.detailItem}>
-              <strong>Tipo:</strong> {clase.tipo_clase}
-            </p>
-            <p className={styles.detailItem}>
-              <strong>Instructor:</strong> {clase.instructor_nombre} {clase.instructor_apellido}
-            </p>
-            <p className={styles.detailItem}>
-              <strong>Dictada:</strong> {clase.dictada ? "Sí" : "No"}
-            </p>
-          </div>
-        ))}
+  <h1 className={styles.detailsHeader}>Detalles de la Actividad</h1>
+  <div className={styles.classesList}>
+    {clases.map((clase) => (
+      <div key={clase.id} className={styles.detailBox}>
+        <p className={styles.detailItem}>
+          <strong>Fecha:</strong> {new Date(clase.fecha_clase).toLocaleDateString()}
+        </p>
+        <p className={styles.detailItem}>
+          <strong>Tipo:</strong> {clase.tipo_clase}
+        </p>
+        <p className={styles.detailItem}>
+          <strong>Instructor:</strong> {clase.instructor_nombre} {clase.instructor_apellido}
+        </p>
+        <p className={styles.detailItem}>
+          <strong>Dictada:</strong> {clase.dictada ? "Sí" : "No"}
+        </p>
+        
+        <button
+          className={styles.subscribeButton}
+          onClick={() => handleInscriptionClick(clase.id)}
+          disabled={clase.cupos === 0 || loading}
+        >
+         {loading
+                ? "Procesando..."
+                : clase.cupos === 0
+                ? "Sin cupos"
+                : "Inscribirme"}
+            </button>
       </div>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        Volver
-      </button>
-    </div>
+    ))}
+  </div>
+  <button className={styles.backButton} onClick={() => navigate(-1)}>
+    Volver
+  </button>
+</div>
+
   );
 };
 
 // Validar las props con PropTypes
 ActivityDetails.propTypes = {
   getActivityDetails: PropTypes.func.isRequired, // Se espera una función obligatoria
+  handleInscription: PropTypes.func.isRequired,
 };
 
 export default ActivityDetails;
