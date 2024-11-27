@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types"; // Importar PropTypes
+import PropTypes from "prop-types"; 
 import styles from "./ActivityDetails.module.css";
 
 const ActivityDetails = ({ getActivityDetails, handleInscription  }) => {
-  const { id } = useParams(); // Extraer "id" directamente
+  const { id } = useParams(); 
   const navigate = useNavigate();
-  const [clases, setClases] = useState([]); // Cambiado a plural para reflejar que son varias clases
+  const [clases, setClases] = useState([]); 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  
 
   const handleInscriptionClick = async (classId) => {
     try {
       setLoading(true);
-      await handleInscription(classId); // Llamar la función desde las props
+      const ci = localStorage.getItem("ci");
+      await handleInscription(classId, ci); 
       alert("¡Inscripción exitosa!");
     } catch (error) {
       alert(`Error: ${error.message}`);
@@ -26,7 +28,7 @@ const ActivityDetails = ({ getActivityDetails, handleInscription  }) => {
     const fetchDetails = async () => {
       try {
         const data = await getActivityDetails(id);
-        setClases(data); // Asignar el array de clases
+        setClases(data); 
       } catch (err) {
         setError(err.message);
       }
