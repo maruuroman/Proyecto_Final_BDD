@@ -52,10 +52,7 @@ const handleInscription = async (classId, ci_alumno) => {
 
     const response = await fetch(`${BASE_URL}/clases/${classId}/inscribirse`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Supongo que usas JWT para autenticación
-      },
+     
     });
 
     if (!response.ok) {
@@ -65,10 +62,10 @@ const handleInscription = async (classId, ci_alumno) => {
 
     const data = await response.json();
     console.log("Inscripción exitosa:", data); 
-    return data; // Devuelve datos adicionales si es necesario
+    return data; 
   } catch (error) {
     console.error("Error en inscripción:", error.message);
-    throw error; // Propaga el error para manejarlo en el componente
+    throw error; 
   }
 };
 
@@ -96,7 +93,7 @@ const App = () => {
   const [userRole, setUserRole] = useState(null);
   const [equipment, setEquipment] = useState([]);
 
-  // Fetch del equipamiento disponible
+  
   useEffect(() => {
     fetch(`${BASE_URL}/api/equipment/available`)
       .then((response) => response.json())
