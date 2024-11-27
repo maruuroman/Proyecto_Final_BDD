@@ -6,6 +6,7 @@ import ActivityList from "./components/ActivityList/ActivityList.jsx";
 import ActivityDetails from "./components/ActivityDetails/ActivityDetails.jsx"; 
 import { useState, useEffect } from "react";
 import { fetchActivities } from "./services/apiService";
+import EquipmentRental from "./components/EquipmentRental/EquipmentRental";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -51,10 +52,8 @@ const handleInscription = async (classId, ci_alumno) => {
 
     const response = await fetch(`${BASE_URL}/clases/${classId}/inscribirse`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Supongo que usas JWT para autenticación
-      },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({"ci_alumno": ci_alumno}),
     });
 
     if (!response.ok) {
@@ -64,16 +63,16 @@ const handleInscription = async (classId, ci_alumno) => {
 
     const data = await response.json();
     console.log("Inscripción exitosa:", data); 
-    return data; // Devuelve datos adicionales si es necesario
+    return data; 
   } catch (error) {
     console.error("Error en inscripción:", error.message);
-    throw error; // Propaga el error para manejarlo en el componente
+    throw error; 
   }
 };
 
 async function verificarInscripcion(ciAlumno, idClase) {
   try {
-      const response = await fetch('${BASE_URL}/verificar_inscripcion', {
+      const response = await fetch(`${BASE_URL}/equipamiento/disponible`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -93,6 +92,15 @@ async function verificarInscripcion(ciAlumno, idClase) {
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [equipment, setEquipment] = useState([]);
+
+  
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/equipment/available`)
+      .then((response) => response.json())
+      .then((data) => setEquipment(data))
+      .catch((error) => console.error("Error al cargar el equipamiento:", error));
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -126,6 +134,11 @@ const App = () => {
         <Route
           path="/clases/:id"
           element={isAuthenticated ? <ActivityDetails  getActivityDetails={getActivityDetails}  handleInscription={handleInscription} /> : <Navigate to="/login" />}
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+        <Route
+          path="/alquilar"
+          element={<EquipmentRental equipment={equipment} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
