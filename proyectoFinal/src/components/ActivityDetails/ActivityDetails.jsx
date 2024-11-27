@@ -76,9 +76,11 @@ const ActivityDetails = ({ getActivityDetails, handleInscription  }) => {
                 ? "Sin cupos"
                 : "Inscribirme"}
             </button>
+            
       </div>
     ))}
   </div>
+ 
   <button className={styles.backButton} onClick={() => navigate(-1)}>
     Volver
   </button>

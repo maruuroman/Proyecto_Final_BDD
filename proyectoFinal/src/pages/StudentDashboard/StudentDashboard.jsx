@@ -54,7 +54,7 @@ const StudentDashboard = ({ fetchActivities }) => {
         {isOpen && (
           <div className={styles.dropdownContent} onClick={(e) => e.stopPropagation()}>
             <button onClick={() => handleMenuNavigation('/home')}>Inicio</button>
-            <button onClick={() => handleMenuNavigation('/equipos')}>Alquiler de Equipos</button>
+            <button onClick={() => handleMenuNavigation('/equipamiento/alquilar')}>Alquiler de Equipos</button>
             <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Inscripciones</button>
             <button onClick={() => {
               localStorage.removeItem('token');

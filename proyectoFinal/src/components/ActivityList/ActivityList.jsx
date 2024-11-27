@@ -21,6 +21,12 @@ const ActivityList = ({ activities }) => {
           >
             Detalles
           </button>
+          <button 
+        className={styles.detailsButton} 
+        onClick={() => navigate(`/equipamiento/${activity.id}`)}
+      >
+        Ver Equipamiento
+      </button>
         </div>
       ))}
     </div>
