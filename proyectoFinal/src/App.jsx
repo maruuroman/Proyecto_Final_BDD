@@ -137,7 +137,7 @@ const App = () => {
         />
         <Route path="*" element={<Navigate to="/login" />} />
         <Route
-          path="/alquilar"
+          path="/equipamiento/:id"
           element={<EquipmentRental equipment={equipment} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
