@@ -52,7 +52,8 @@ const handleInscription = async (classId, ci_alumno) => {
 
     const response = await fetch(`${BASE_URL}/clases/${classId}/inscribirse`, {
       method: "POST",
-     
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({"ci_alumno": ci_alumno}),
     });
 
     if (!response.ok) {

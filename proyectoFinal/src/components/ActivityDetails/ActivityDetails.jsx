@@ -9,11 +9,13 @@ const ActivityDetails = ({ getActivityDetails, handleInscription  }) => {
   const [clases, setClases] = useState([]); 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  
 
   const handleInscriptionClick = async (classId) => {
     try {
       setLoading(true);
-      await handleInscription(classId); 
+      const ci = localStorage.getItem("ci");
+      await handleInscription(classId, ci); 
       alert("¡Inscripción exitosa!");
     } catch (error) {
       alert(`Error: ${error.message}`);

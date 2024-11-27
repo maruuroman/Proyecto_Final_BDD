@@ -24,7 +24,7 @@ const LoginPage = ({ onLogin }) => {
         // Almacenar token y rol del usuario en el localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("userRole", data.role); // Asumimos que el backend devuelve un campo 'role'
-  
+        localStorage.setItem("ci", data.ci);
         // Redirigir al dashboard según el rol del usuario
         if (data.role === "student") {
           navigate("/student"); // Redirigir a /student si el rol es "student"
