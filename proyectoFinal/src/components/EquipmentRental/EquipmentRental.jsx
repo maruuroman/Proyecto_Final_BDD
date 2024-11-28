@@ -1,11 +1,9 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./EquipmentRental.module.css";
-import PropTypes from "prop-types"; 
 
 const EquipamientRental = ({handleRentEquipment }) => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [equipamiento, setEquipamiento] = useState([]);
   const [error, setError] = useState(null);
 
@@ -26,32 +24,27 @@ const EquipamientRental = ({handleRentEquipment }) => {
 
   const handleAlquilar = async (equipamientoId) => {
     try {
-        const ci = localStorage.getItem("ci");
-        if (!ci) {
-          throw new Error("No se encontró la cédula del alumno.");
-        }
-        await handleRentEquipment(equipamientoId,ci);
-        alert("Equipamiento alquilado con éxito.");
-      } catch (error) {
-        alert(`Error al alquilar el equipamiento: ${error.message}`);
-      }
-    };
-    if (error) {
-      return <p>Error: {error}</p>;
+      const ci = localStorage.getItem("ci");
+      const id_clase = localStorage.getItem("id_clase");
+      await handleRentEquipment(equipamientoId,ci, id_clase);
+      alert("Equipamiento alquilado con éxito.");
+    } catch (error) {
+      alert("Error al alquilar el equipamiento.", error);
     }
-      
+  };
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   if (!equipamiento.length) {
     return <p>No hay equipamientos disponibles.</p>;
   }
 
   return (
     <div className={styles.equipamientoContainer}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        Volver
-      </button>
       <h1 className={styles.header}>Equipamiento disponible</h1>
       <div className={styles.grid}>
-      {equipamiento.map((item) => (
+        {equipamiento.map((item) => (
           <div key={item.id} className={styles.card}>
             <h3>{item.descripcion}</h3>
             <p>
@@ -69,11 +62,4 @@ const EquipamientRental = ({handleRentEquipment }) => {
     </div>
   );
 };
-
-
-EquipamientRental.propTypes = {
-  handleRentEquipment: PropTypes.func.isRequired,
-};
-
-
 export default EquipamientRental;
