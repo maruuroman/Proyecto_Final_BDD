@@ -19,7 +19,7 @@ const ActivityList = ({ activities }) => {
             className={styles.detailsButton}
             onClick={() => handleDetails(activity.id)}
           >
-            Detalles
+            Ver clases
           </button>
           <button 
         className={styles.detailsButton} 
