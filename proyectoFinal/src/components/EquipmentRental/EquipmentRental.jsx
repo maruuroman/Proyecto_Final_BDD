@@ -18,8 +18,6 @@ const EquipamientRental = ({handleRentEquipment }) => {
         setError(err.message);
       }
     };
-
-    
     fetchEquipamiento();
   }, [id]);
 
