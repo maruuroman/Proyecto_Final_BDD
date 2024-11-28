@@ -7,7 +7,7 @@ import ActivityDetails from "./components/ActivityDetails/ActivityDetails.jsx";
 import { useState, useEffect } from "react";
 import { fetchActivities } from "./services/apiService";
 import EquipmentRental from "./components/EquipmentRental/EquipmentRental";
-
+import Reservations from "./components/Reservations/Reservations";
 const BASE_URL = "http://localhost:5000";
 
 const loginUser = async (credentials) => {
@@ -160,6 +160,12 @@ const App = () => {
           element={<EquipmentRental handleRentEquipment={handleRentEquipment} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
+        <Route
+          path="/reservas"
+          element={<Reservations />}
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+        
       </Routes>
     </Router>
   );

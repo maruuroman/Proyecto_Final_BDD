@@ -15,7 +15,7 @@ const LoginPage = ({ onLogin }) => {
     const credentials = { correo, contraseña };
     try {
       const data = await onLogin(credentials);
-      console.log("Datos recibidos del backend:", data); // Verificar los datos
+      
   
       // Verifica si la respuesta tiene los datos correctos
       if (data && data.token && data.role) {
