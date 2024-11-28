@@ -8,9 +8,7 @@
   min-height: 100vh; /* Asegura que el fondo cubra toda la altura de la ventana */
   display: flex;
   flex-direction: column;
-  box-sizing: border-box; 
-  padding-top: 100px;
-  overflow-y: auto;
+  box-sizing: border-box; /* Incluye padding y border en el tamaño total */
 }
 
 /* Header o título */
@@ -37,8 +35,6 @@
   gap: 20px;
   margin-top: 60px; /* Asegura espacio suficiente debajo del encabezado */
   padding-bottom: 20px; /* Espacio al final del grid */
-  justify-items: stretch;
-  align-items: stretch;
 }
 
 /* Estilo de las tarjetas */
@@ -49,10 +45,6 @@
   padding: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  display: flex; /* Asegura que el contenido interno se alinee */
-  flex-direction: column; /* Coloca los elementos en una columna */
-  justify-content: space-between; /* Espacia el contenido */
-  height: 100%; /* Permite que la tarjeta se estire verticalmente */
 }
 
 .card:hover {
@@ -106,25 +98,5 @@ body, html {
   background-color: #e6f7ff; /* Misma tonalidad del contenedor */
   min-height: 100%;
   overflow-y: auto; /* Habilita el scroll de la página completa */
-  /*box-sizing: border-box;*/
+  box-sizing: border-box;
 }
-
-.backButton {
-  position: absolute; /* Posiciona el botón de forma absoluta */
-  top: 20px; /* Espaciado desde la parte superior */
-  left: 20px; /* Espaciado desde la parte izquierda */
-  padding: 10px 20px; /* Espaciado interno para el botón */
-  font-size: 14px; /* Tamaño de fuente del botón */
-  cursor: pointer; /* Cambia el cursor a un puntero */
-  background-color: #646cff; /* Color de fondo del botón */
-  color: white; /* Color del texto */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  z-index: 1000; /* Asegura que esté encima de otros elementos */
-  transition: background-color 0.3s; /* Animación en el cambio de color */
-}
-
-.backButton:hover {
-  background-color: #535bf2; /* Cambio de color al pasar el ratón */
-}
-

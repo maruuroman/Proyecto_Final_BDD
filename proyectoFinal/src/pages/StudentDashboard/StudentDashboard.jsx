@@ -56,7 +56,7 @@ const StudentDashboard = ({ fetchActivities }) => {
           <div className={styles.dropdownContent} onClick={(e) => e.stopPropagation()}>
             <button onClick={() => handleMenuNavigation('/home')}>Inicio</button>
             <button onClick={() => handleMenuNavigation('/reservas')}> Reservas de Equipamiento</button>
-            <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Inscripciones</button>
+            <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Clases</button>
             <button onClick={() => {
               localStorage.removeItem('token');
               navigate('/login');
