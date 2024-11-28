@@ -86,10 +86,9 @@ async function verificarInscripcion(ciAlumno, idClase) {
   }
 }
 
-const handleRentEquipment = async (equipamientoId, ci, id_clase) => {
+const handleRentEquipment = async (equipamientoId, ci) => {
  
   const fechaReserva = new Date().toISOString().split("T")[0]; // Fecha actual en formato YYYY-MM-DD
-console.log(id_clase)
   if (!ci) {
     throw new Error("No se ha encontrado la cédula del alumno en el sistema");
   }
@@ -100,7 +99,7 @@ console.log(id_clase)
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ci: ci, fecha_reserva: fechaReserva, id_clase:id_clase }),
+      body: JSON.stringify({ ci: ci, fecha_reserva: fechaReserva }),
     });
 console.log(response);
     if (!response.ok) {

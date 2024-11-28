@@ -15,9 +15,12 @@ const ActivityDetails = ({ getActivityDetails, handleInscription  }) => {
     try {
       setLoading(true);
       const ci = localStorage.getItem("ci");
+      if (!ci) throw new Error("No se encontró la cédula en el sistema");
+      console.log(`Inscribiendo a la clase ${classId} con cédula ${ci}`);
       await handleInscription(classId, ci); 
       alert("¡Inscripción exitosa!");
     } catch (error) {
+      console.error("Error en inscripción:", error.message);
       alert(`Error: ${error.message}`);
     } finally {
       setLoading(false);
