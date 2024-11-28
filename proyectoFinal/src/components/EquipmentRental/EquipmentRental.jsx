@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./EquipmentRental.module.css";
+import PropTypes from "prop-types";
 
 const EquipamientRental = ({handleRentEquipment }) => {
   const { id } = useParams();
@@ -62,4 +63,9 @@ const EquipamientRental = ({handleRentEquipment }) => {
     </div>
   );
 };
+
+EquipamientRental.propTypes = {
+  handleRentEquipment: PropTypes.func.isRequired,
+};
+
 export default EquipamientRental;
