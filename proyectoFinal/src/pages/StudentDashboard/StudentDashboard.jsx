@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityList from "../../components/ActivityList/ActivityList";
 import styles from "./StudentDashboard.module.css";
+import PropTypes from "prop-types";
 
 const StudentDashboard = ({ fetchActivities }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +68,10 @@ const StudentDashboard = ({ fetchActivities }) => {
       <ActivityList activities={activities} />
     </div>
   );
+};
+
+StudentDashboard.propTypes = {
+  fetchActivities: PropTypes.func.isRequired,
 };
 
 export default StudentDashboard;
