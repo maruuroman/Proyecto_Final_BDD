@@ -87,11 +87,16 @@ async function verificarInscripcion(ciAlumno, idClase) {
 }
 
 const handleRentEquipment = async (equipamientoId, ci) => {
- 
+  const idClase = localStorage.getItem("id_clase");
   const fechaReserva = new Date().toISOString().split("T")[0]; // Fecha actual en formato YYYY-MM-DD
   if (!ci) {
     throw new Error("No se ha encontrado la cédula del alumno en el sistema");
   }
+
+  if (!idClase) {
+    throw new Error("No se ha encontrado el id_clase en el sistema");
+  }
+
 
   try {
     const response = await fetch(`${BASE_URL}/equipamiento/${equipamientoId}/reservar`, {
@@ -99,9 +104,9 @@ const handleRentEquipment = async (equipamientoId, ci) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ci: ci, fecha_reserva: fechaReserva }),
+      body: JSON.stringify({ ci, fecha_reserva: fechaReserva, id_clase: idClase }),
     });
-console.log(response);
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || "Error al reservar el equipamiento");

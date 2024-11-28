@@ -27,10 +27,13 @@ const EquipamientRental = ({handleRentEquipment }) => {
   const handleAlquilar = async (equipamientoId) => {
     try {
         const ci = localStorage.getItem("ci");
+        if (!ci) {
+          throw new Error("No se encontró la cédula del alumno.");
+        }
         await handleRentEquipment(equipamientoId,ci);
         alert("Equipamiento alquilado con éxito.");
       } catch (error) {
-        alert("Error al alquilar el equipamiento.", error);
+        alert(`Error al alquilar el equipamiento: ${error.message}`);
       }
     };
     if (error) {
