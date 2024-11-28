@@ -1,4 +1,4 @@
-import styles from "./InstructorDashboard.jsx";
+import styles from "./InstructorDashboard.module.css";
 
 const InstructorDashboard = () => {
     return (
@@ -10,6 +10,7 @@ const InstructorDashboard = () => {
           alt="Usuario"
           className={styles.headerImage}
         />
+        <button className={styles.dropdownButton}>Menú</button>
       </div>
         <h1>Bienvenido al Panel del Instructor</h1>
       </div>
