@@ -7,7 +7,7 @@ import ActivityDetails from "./components/ActivityDetails/ActivityDetails.jsx";
 import { useState, useEffect } from "react";
 import { fetchActivities } from "./services/apiService";
 import EquipmentRental from "./components/EquipmentRental/EquipmentRental";
-
+import Reservations from "./components/Reservations/Reservations";
 const BASE_URL = "http://localhost:5000";
 
 const loginUser = async (credentials) => {
@@ -86,10 +86,11 @@ async function verificarInscripcion(ciAlumno, idClase) {
   }
 }
 
-const handleRentEquipment = async (equipamientoId, ci_alumno) => {
+const handleRentEquipment = async (equipamientoId, ci, id_clase) => {
+ 
   const fechaReserva = new Date().toISOString().split("T")[0]; // Fecha actual en formato YYYY-MM-DD
-
-  if (!ci_alumno) {
+console.log(id_clase)
+  if (!ci) {
     throw new Error("No se ha encontrado la cédula del alumno en el sistema");
   }
 
@@ -99,9 +100,9 @@ const handleRentEquipment = async (equipamientoId, ci_alumno) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ci_alumno: ci_alumno, fecha_reserva: fechaReserva }),
+      body: JSON.stringify({ ci: ci, fecha_reserva: fechaReserva, id_clase:id_clase }),
     });
-
+console.log(response);
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || "Error al reservar el equipamiento");
@@ -110,6 +111,7 @@ const handleRentEquipment = async (equipamientoId, ci_alumno) => {
     const data = await response.json();
     console.log("Equipamiento reservado con éxito:", data);
     return data;
+    
   } catch (error) {
     console.error("Error en la reserva:", error.message);
     throw error; // Propagar el error para que el componente lo maneje
@@ -160,6 +162,12 @@ const App = () => {
           element={<EquipmentRental handleRentEquipment={handleRentEquipment} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
+        <Route
+          path="/reservas"
+          element={<Reservations />}
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+        
       </Routes>
     </Router>
   );

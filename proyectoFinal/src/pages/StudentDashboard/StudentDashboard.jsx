@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityList from "../../components/ActivityList/ActivityList";
 import styles from "./StudentDashboard.module.css";
+import PropTypes from "prop-types";
 
 const StudentDashboard = ({ fetchActivities }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +44,10 @@ const StudentDashboard = ({ fetchActivities }) => {
     return <p style={{ color: "red" }}>{error}</p>;
   }
 
+  if (activities.length === 0) {
+    return <p style={{ textAlign: "center" }}>No hay actividades disponibles.</p>;
+  }
+
   return (
     <div className={styles.dashboardContainer} onClick={() => setIsOpen(false)}>
       <div className={styles.headerBar}>
@@ -50,8 +55,8 @@ const StudentDashboard = ({ fetchActivities }) => {
         {isOpen && (
           <div className={styles.dropdownContent} onClick={(e) => e.stopPropagation()}>
             <button onClick={() => handleMenuNavigation('/home')}>Inicio</button>
-            <button onClick={() => handleMenuNavigation('/equipamiento/alquilar')}>Alquiler de Equipos</button>
-            <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Inscripciones</button>
+            <button onClick={() => handleMenuNavigation('/reservas')}> Reservas de Equipamiento</button>
+            <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Clases</button>
             <button onClick={() => {
               localStorage.removeItem('token');
               navigate('/login');
@@ -63,6 +68,10 @@ const StudentDashboard = ({ fetchActivities }) => {
       <ActivityList activities={activities} />
     </div>
   );
+};
+
+StudentDashboard.propTypes = {
+  fetchActivities: PropTypes.func.isRequired,
 };
 
 export default StudentDashboard;

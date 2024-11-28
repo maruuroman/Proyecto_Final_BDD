@@ -10,7 +10,7 @@ const EquipamientRental = ({handleRentEquipment }) => {
   useEffect(() => {
     const fetchEquipamiento = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/equipamiento/${id}/disponibles`);
+        const response = await fetch(`http://localhost:5000/equipamiento/${id}`);
         if (!response.ok) throw new Error("Error al cargar el equipamiento");
         const data = await response.json();
         setEquipamiento(data);
@@ -19,16 +19,17 @@ const EquipamientRental = ({handleRentEquipment }) => {
       }
     };
     fetchEquipamiento();
-  }, [id]);
+  }, [id]); // id es una dependencia adecuada.
+  
 
   const handleAlquilar = async (equipamientoId) => {
     try {
       const ci = localStorage.getItem("ci");
-      await handleRentEquipment(equipamientoId, ci);
+      const id_clase = localStorage.getItem("id_clase");
+      await handleRentEquipment(equipamientoId,ci, id_clase);
       alert("Equipamiento alquilado con éxito.");
     } catch (error) {
-      console.error("Error en handleAlquilar:", error.message);
-      alert(`Error al alquilar el equipamiento: ${error.message}`);
+      alert("Error al alquilar el equipamiento.", error);
     }
   };
   if (error) {

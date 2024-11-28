@@ -8,8 +8,7 @@
   min-height: 100vh; /* Asegura que el fondo cubra toda la altura de la ventana */
   display: flex;
   flex-direction: column;
-  box-sizing: border-box; 
-  padding-top: 100px;
+  box-sizing: border-box; /* Incluye padding y border en el tamaño total */
 }
 
 /* Header o título */
