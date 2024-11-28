@@ -86,22 +86,41 @@ async function verificarInscripcion(ciAlumno, idClase) {
   }
 }
 
+const handleRentEquipment = async (equipamientoId, ci_alumno) => {
+  const fechaReserva = new Date().toISOString().split("T")[0]; // Fecha actual en formato YYYY-MM-DD
 
+  if (!ci_alumno) {
+    throw new Error("No se ha encontrado la cédula del alumno en el sistema");
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/equipamiento/${equipamientoId}/reservar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ci_alumno: ci_alumno, fecha_reserva: fechaReserva }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Error al reservar el equipamiento");
+    }
+
+    const data = await response.json();
+    console.log("Equipamiento reservado con éxito:", data);
+    return data;
+  } catch (error) {
+    console.error("Error en la reserva:", error.message);
+    throw error; // Propagar el error para que el componente lo maneje
+  }
+};
 
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
-  const [equipment, setEquipment] = useState([]);
-
-  
-  useEffect(() => {
-    fetch(`${BASE_URL}/api/equipment/available`)
-      .then((response) => response.json())
-      .then((data) => setEquipment(data))
-      .catch((error) => console.error("Error al cargar el equipamiento:", error));
-  }, []);
-
+ 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("userRole");
@@ -138,7 +157,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/login" />} />
         <Route
           path="/equipamiento/:id"
-          element={<EquipmentRental equipment={equipment} />}
+          element={<EquipmentRental handleRentEquipment={handleRentEquipment} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
