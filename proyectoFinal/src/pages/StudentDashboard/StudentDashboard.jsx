@@ -58,7 +58,7 @@ const StudentDashboard = ({ fetchActivities }) => {
             <button onClick={() => handleMenuNavigation('/reservas')}> Reservas de Equipamiento</button>
             <button onClick={() => handleMenuNavigation('/inscripciones')}>Mis Clases</button>
             <button onClick={() => {
-              localStorage.removeItem('token');
+              localStorage.clear();
               navigate('/login');
             }}>Logout</button>
           </div>

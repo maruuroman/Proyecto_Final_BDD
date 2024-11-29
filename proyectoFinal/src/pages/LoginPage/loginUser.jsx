@@ -13,7 +13,7 @@ export const loginUser = async (credentials) => {
 
   const data = await response.json();
   localStorage.setItem("token", data.token);
-  localStorage.setItem("userRole", data.role);
+  localStorage.setItem("rol", data.rol);
 
   return response.json();
 };

@@ -124,7 +124,7 @@ const App = () => {
  
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const role = localStorage.getItem("userRole");
+    const role = localStorage.getItem("role");
 
     if (token && role) {
       setIsAuthenticated(true);
@@ -143,7 +143,9 @@ const App = () => {
           path="/student"
           element={isAuthenticated && userRole === "student" ? <StudentDashboard fetchActivities={fetchActivities} /> : <Navigate to="/login" />}
         />
+        
         <Route
+        
           path="/instructor"
           element={isAuthenticated && userRole === "instructor" ? <InstructorDashboard /> : <Navigate to="/login" />}
         />

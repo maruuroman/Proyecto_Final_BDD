@@ -31,3 +31,21 @@
     margin: 0;
   }
   
+  .backButton {
+    position: absolute; /* Posicionamiento absoluto */
+    top: 10px; /* Distancia desde la parte superior */
+    left: 10px; /* Distancia desde la parte izquierda */
+    background-color: skyblue; /* Fondo blanco */
+    border: 5px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+    cursor: pointer; /* Cursor de clic */
+    transition: background-color 0.3s; /* Efecto al pasar el ratón */
+  }
+  
+  .backButton:hover {
+    background-color: #f0f0f0; /* Cambio de fondo al pasar el ratón */
+  }
+  

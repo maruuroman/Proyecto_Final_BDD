@@ -1,6 +1,36 @@
 import styles from "./InstructorDashboard.module.css";
+import { useEffect, useState } from "react";
+
 
 const InstructorDashboard = () => {
+  const [classes, setClasses] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const ciInstructor = localStorage.getItem("ci"); // Reemplaza con el CI del instructor actual
+        const response = await fetch(`http://localhost:5000/instructor/${ciInstructor}/clases`,{
+          headers: {
+            'Authorization': 'Bearer tu_token_aqui',
+            'Content-Type': 'application/json'
+          }
+        })
+        console.log(response)
+        if (!response.ok) {
+          throw new Error("Error al obtener las clases.");
+        }
+        const data = await response.json();
+        console.log(data)
+        setClasses(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchClasses();
+  }, []);
+  
     return (
       <div className={styles.container}>
         <div className={styles.headerBar}>
@@ -10,11 +40,42 @@ const InstructorDashboard = () => {
           alt="Usuario"
           className={styles.headerImage}
         />
-        <button className={styles.dropdownButton}>Menú</button>
+        
+       
       </div>
-        <h1>Bienvenido al Panel del Instructor</h1>
-      </div>
+      <div className={styles.container}>
+      <h1>Bienvenido al Panel del Instructor</h1>
+      {error ? (
+        <div className={styles.error}>{error}</div>
+      ) : (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Tipo</th>
+              <th>Actividad</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {classes.map((clase) => (
+              <tr key={clase.id}>
+                <td>{new Date(clase.fecha_clase).toLocaleDateString()}</td>
+                <td>{clase.tipo_clase}</td>
+                <td>{clase.actividad}</td>
+                <td>{clase.turno_inicio}</td>
+                <td>{clase.turno_fin}</td>
+                <td>{clase.dictada ? "Sí" : "No"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+    </div>
     );
   };
   
-  export default InstructorDashboard; 
+export default InstructorDashboard; 

@@ -1,9 +1,11 @@
 import  { useEffect, useState } from "react";
 import styles from "./Reservations.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Reservations = () => {
   const [reservas, setReservas] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReservas = async () => {
@@ -30,6 +32,9 @@ const Reservations = () => {
 
   return (
     <div className={styles.reservationsContainer}>
+       <button className={styles.backButton} onClick={() => navigate(-1)}>
+        Volver
+      </button>
       <h1 className={styles.header}>Mis Reservas</h1>
       <ul className={styles.reservationList}>
         {reservas.map((reserva) => (
